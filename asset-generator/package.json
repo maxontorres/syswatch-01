@@ -1,0 +1,18 @@
+{
+  "name": "syswatch-01-asset-generator",
+  "version": "1.0.0",
+  "description": "Deterministic SVG and PNG asset generator for Syswatch 01",
+  "scripts": {
+    "generate": "node scripts/generate-icons.mjs",
+    "preview": "node scripts/generate-preview.mjs",
+    "build": "npm run generate && npm run preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "sharp": "^0.35.5"
+  },
+  "private": true
+}
