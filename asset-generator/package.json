@@ -10,7 +10,9 @@
     "validate:numerals": "node scripts/validate-numerals.mjs",
     "generate:clock-font": "node scripts/generate-clock-font.mjs",
     "validate:clock-font": "node scripts/validate-clock-font.mjs",
-    "build": "npm run generate && npm run preview && npm run generate:numerals && npm run generate:clock-font && npm run validate && npm run validate:numerals && npm run validate:clock-font"
+    "generate:production": "node scripts/generate-production-preview.mjs",
+    "validate:production": "node scripts/validate-production-preview.mjs",
+    "build": "npm run generate && npm run preview && npm run generate:numerals && npm run generate:clock-font && npm run generate:production && npm run validate && npm run validate:numerals && npm run validate:clock-font && npm run validate:production"
   },
   "keywords": [],
   "author": "",
