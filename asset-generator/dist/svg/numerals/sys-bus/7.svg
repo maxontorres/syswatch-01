@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="112" viewBox="0 0 72 112" fill="none">
+  <g fill="#79EEFF" stroke="none">
+    <rect x="12" y="18" width="35" height="6" shape-rendering="crispEdges"/>
+    <path d="M50 16h10v10h-10zM53 19h4v4h-4z" fill-rule="evenodd" shape-rendering="crispEdges"/>
+    <g>
+      <rect x="50" y="29" width="3" height="67" shape-rendering="crispEdges"/>
+      <rect x="57" y="29" width="3" height="67" shape-rendering="crispEdges"/>
+    </g>
+  </g>
+</svg>

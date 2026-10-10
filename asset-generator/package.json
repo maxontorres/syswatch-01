@@ -6,7 +6,9 @@
     "generate": "node scripts/generate-icons.mjs",
     "preview": "node scripts/generate-preview.mjs",
     "validate": "node scripts/validate-assets.mjs",
-    "build": "npm run generate && npm run preview && npm run validate"
+    "generate:numerals": "node scripts/generate-numerals.mjs",
+    "validate:numerals": "node scripts/validate-numerals.mjs",
+    "build": "npm run generate && npm run preview && npm run generate:numerals && npm run validate && npm run validate:numerals"
   },
   "keywords": [],
   "author": "",
