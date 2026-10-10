@@ -1,0 +1,45 @@
+# Node.js dependencies and logs
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Temporary files and caches
+.cache/
+temp/
+tmp/
+*.tmp
+*.log
+
+# Watch Face Studio / Android build output
+build/
+**/build/
+.gradle/
+**/.gradle/
+*.apk
+*.aab
+*.apks
+
+# IDE settings
+.vscode/
+.idea/
+*.code-workspace
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+
+# Backup files
+*.bak
+*.backup
+*~
