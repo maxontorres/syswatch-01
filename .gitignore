@@ -43,3 +43,5 @@ $RECYCLE.BIN/
 *.bak
 *.backup
 *~
+# Locally evaluated fonts pending license verification
+asset-generator/assets/fonts/local/
