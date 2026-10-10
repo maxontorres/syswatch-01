@@ -8,7 +8,9 @@
     "validate": "node scripts/validate-assets.mjs",
     "generate:numerals": "node scripts/generate-numerals.mjs",
     "validate:numerals": "node scripts/validate-numerals.mjs",
-    "build": "npm run generate && npm run preview && npm run generate:numerals && npm run validate && npm run validate:numerals"
+    "generate:clock-font": "node scripts/generate-clock-font.mjs",
+    "validate:clock-font": "node scripts/validate-clock-font.mjs",
+    "build": "npm run generate && npm run preview && npm run generate:numerals && npm run generate:clock-font && npm run validate && npm run validate:numerals && npm run validate:clock-font"
   },
   "keywords": [],
   "author": "",
