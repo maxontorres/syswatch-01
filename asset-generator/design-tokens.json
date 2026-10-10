@@ -1,0 +1,61 @@
+{
+  "name": "syswatch-01",
+  "color": {
+    "background": "#02070D",
+    "primary": "#79EEFF",
+    "secondary": "#087DA6",
+    "accent": "#FFB347"
+  },
+  "stroke": {
+    "width": 2,
+    "linecap": "square",
+    "linejoin": "miter"
+  },
+  "icon": {
+    "size": 64,
+    "strokeWidth": 4,
+    "previewSizes": [16, 24, 32, 64]
+  },
+  "watchFace": {
+    "size": 450
+  },
+  "grid": {
+    "pitch": 25,
+    "offset": 12,
+    "majorEvery": 3,
+    "minorOpacity": 0.16,
+    "majorOpacity": 0.32,
+    "markOpacity": 0.4
+  },
+  "secondsRing": {
+    "segments": 60,
+    "innerRadius": 208,
+    "outerRadius": 220,
+    "gapDegrees": 1.8,
+    "inactiveOpacity": 0.48
+  },
+  "typography": {
+    "clock": {
+      "font": "departure-mono",
+      "nativeSize": 11,
+      "size": 99,
+      "tracking": 0,
+      "comparisonSizes": [88, 99, 110],
+      "trackingSteps": [0, -0.5, -1],
+      "meridiemSize": 22
+    },
+    "interface": {
+      "font": "share-tech-mono",
+      "eventSize": 16,
+      "eventTracking": 1,
+      "dateSize": 20,
+      "dateTracking": 1,
+      "moduleSize": 15,
+      "moduleLabelSize": 12,
+      "moduleValueSize": 16,
+      "moduleLineGap": 6,
+      "moduleIconSize": 28,
+      "moduleGap": 6
+    }
+  }
+}
