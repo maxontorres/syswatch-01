@@ -1,0 +1,36 @@
+{
+  "description": "Maps semantic weather labels to the consolidated Syswatch 01 weather icon names.",
+  "wfsNumericMapping": {
+    "status": "unverified",
+    "values": null,
+    "note": "Numeric Watch Face Studio weather-condition values are intentionally not included. They must be verified against the installed Watch Face Studio version before integration; do not infer them from this file."
+  },
+  "fallback": "weather-unknown",
+  "labels": {
+    "breezy": "weather-wind",
+    "clear": "weather-clear",
+    "cloudy": "weather-cloudy",
+    "drizzle": "weather-rain",
+    "fog": "weather-fog",
+    "freezing-rain": "weather-sleet",
+    "haze": "weather-fog",
+    "heavy-rain": "weather-heavy-rain",
+    "heavy-snow": "weather-snow",
+    "light-rain": "weather-rain",
+    "light-snow": "weather-snow",
+    "mist": "weather-fog",
+    "mostly-clear": "weather-partly-cloudy",
+    "mostly-cloudy": "weather-cloudy",
+    "overcast": "weather-cloudy",
+    "partly-cloudy": "weather-partly-cloudy",
+    "rain": "weather-rain",
+    "showers": "weather-rain",
+    "sleet": "weather-sleet",
+    "snow": "weather-snow",
+    "storm": "weather-storm",
+    "sunny": "weather-clear",
+    "thunderstorm": "weather-storm",
+    "unknown": "weather-unknown",
+    "wind": "weather-wind"
+  }
+}

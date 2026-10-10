@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#79EEFF" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter">
+  <polygon points="8,12 56,12 56,48 48,56 8,56"/>
+  <line x1="8" y1="24" x2="56" y2="24" shape-rendering="crispEdges"/>
+  <line x1="20" y1="6" x2="20" y2="12" shape-rendering="crispEdges"/>
+  <line x1="44" y1="6" x2="44" y2="12" shape-rendering="crispEdges"/>
+  <rect x="15" y="31" width="6" height="6" shape-rendering="crispEdges" fill="#FFB347" stroke="none"/>
+  <rect x="29" y="31" width="6" height="6" shape-rendering="crispEdges" fill="#79EEFF" stroke="none"/>
+  <rect x="43" y="31" width="6" height="6" shape-rendering="crispEdges" fill="#79EEFF" stroke="none"/>
+  <rect x="15" y="43" width="6" height="6" shape-rendering="crispEdges" fill="#79EEFF" stroke="none"/>
+  <rect x="29" y="43" width="6" height="6" shape-rendering="crispEdges" fill="#79EEFF" stroke="none"/>
+</svg>

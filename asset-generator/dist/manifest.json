@@ -1,0 +1,218 @@
+{
+  "name": "syswatch-01",
+  "assetCount": 19,
+  "assets": [
+    {
+      "name": "background-grid",
+      "category": "structural",
+      "width": 450,
+      "height": 450,
+      "transparent": false,
+      "svg": "svg/background-grid.svg",
+      "png": "png/background-grid.png"
+    },
+    {
+      "name": "battery",
+      "category": "icon-interface",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/battery.svg",
+      "png": "png/battery.png"
+    },
+    {
+      "name": "calendar",
+      "category": "icon-interface",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/calendar.svg",
+      "png": "png/calendar.png"
+    },
+    {
+      "name": "compass",
+      "category": "icon-interface",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/compass.svg",
+      "png": "png/compass.png"
+    },
+    {
+      "name": "heart",
+      "category": "icon-interface",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/heart.svg",
+      "png": "png/heart.png"
+    },
+    {
+      "name": "hud-frame",
+      "category": "structural",
+      "width": 450,
+      "height": 450,
+      "transparent": true,
+      "svg": "svg/hud-frame.svg",
+      "png": "png/hud-frame.png"
+    },
+    {
+      "name": "seconds-ring-active",
+      "category": "structural",
+      "width": 450,
+      "height": 450,
+      "transparent": true,
+      "svg": "svg/seconds-ring-active.svg",
+      "png": "png/seconds-ring-active.png"
+    },
+    {
+      "name": "seconds-ring-base",
+      "category": "structural",
+      "width": 450,
+      "height": 450,
+      "transparent": true,
+      "svg": "svg/seconds-ring-base.svg",
+      "png": "png/seconds-ring-base.png"
+    },
+    {
+      "name": "weather-clear",
+      "category": "icon-weather",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/weather-clear.svg",
+      "png": "png/weather-clear.png"
+    },
+    {
+      "name": "weather-cloudy",
+      "category": "icon-weather",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/weather-cloudy.svg",
+      "png": "png/weather-cloudy.png"
+    },
+    {
+      "name": "weather-fog",
+      "category": "icon-weather",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/weather-fog.svg",
+      "png": "png/weather-fog.png"
+    },
+    {
+      "name": "weather-heavy-rain",
+      "category": "icon-weather",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/weather-heavy-rain.svg",
+      "png": "png/weather-heavy-rain.png"
+    },
+    {
+      "name": "weather-partly-cloudy",
+      "category": "icon-weather",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/weather-partly-cloudy.svg",
+      "png": "png/weather-partly-cloudy.png"
+    },
+    {
+      "name": "weather-rain",
+      "category": "icon-weather",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/weather-rain.svg",
+      "png": "png/weather-rain.png"
+    },
+    {
+      "name": "weather-sleet",
+      "category": "icon-weather",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/weather-sleet.svg",
+      "png": "png/weather-sleet.png"
+    },
+    {
+      "name": "weather-snow",
+      "category": "icon-weather",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/weather-snow.svg",
+      "png": "png/weather-snow.png"
+    },
+    {
+      "name": "weather-storm",
+      "category": "icon-weather",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/weather-storm.svg",
+      "png": "png/weather-storm.png"
+    },
+    {
+      "name": "weather-unknown",
+      "category": "icon-weather",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/weather-unknown.svg",
+      "png": "png/weather-unknown.png"
+    },
+    {
+      "name": "weather-wind",
+      "category": "icon-weather",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "svg": "svg/weather-wind.svg",
+      "png": "png/weather-wind.png"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "departure-mono",
+      "family": "Departure Mono",
+      "role": "clock",
+      "usage": [
+        "main clock numerals",
+        "colon",
+        "AM/PM"
+      ],
+      "version": "1.500",
+      "designer": "Helena Zhang",
+      "license": "OFL-1.1",
+      "source": "https://github.com/rektdeckard/departure-mono",
+      "file": "../assets/fonts/departure-mono/DepartureMono-Regular.otf",
+      "licenseFile": "../assets/fonts/departure-mono/LICENSE",
+      "sha256": "4d53f663155cf8bf7ffc8e688776e719625f7bbb80a8d90073438b249261a2e0",
+      "licenseSha256": "b65e42750f3cb65437a97f4dfd781c58f199259949db2341012be60e32500e83"
+    },
+    {
+      "name": "share-tech-mono",
+      "family": "Share Tech Mono",
+      "role": "interface",
+      "usage": [
+        "date",
+        "event text",
+        "heart rate",
+        "battery",
+        "weather",
+        "small interface labels"
+      ],
+      "version": "1.003",
+      "designer": "Ralph Oliver du Carrois",
+      "license": "OFL-1.1",
+      "source": "https://github.com/google/fonts/tree/main/ofl/sharetechmono",
+      "file": "../assets/fonts/share-tech-mono/ShareTechMono-Regular.ttf",
+      "licenseFile": "../assets/fonts/share-tech-mono/OFL.txt",
+      "sha256": "9ceab1f87414829af259c0f537573ae03ef7dd3147c0b27a36a1a0beb6732677",
+      "licenseSha256": "9d96f445b6e9c701428811d0177f894874f8d6f07ecc30d568c506542368f3ff"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#79EEFF" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter">
+  <polyline points="10,22 10,10 22,10" shape-rendering="crispEdges"/>
+  <polyline points="42,10 54,10 54,22" shape-rendering="crispEdges"/>
+  <polyline points="54,42 54,54 42,54" shape-rendering="crispEdges"/>
+  <polyline points="22,54 10,54 10,42" shape-rendering="crispEdges"/>
+  <rect x="17" y="29" width="6" height="6" shape-rendering="crispEdges" fill="#79EEFF" stroke="none"/>
+  <rect x="29" y="29" width="6" height="6" shape-rendering="crispEdges" fill="#79EEFF" stroke="none"/>
+  <rect x="41" y="29" width="6" height="6" shape-rendering="crispEdges" fill="#79EEFF" stroke="none"/>
+</svg>

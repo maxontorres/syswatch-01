@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="450" height="450" viewBox="0 0 450 450" fill="none">
+  <g stroke="#087DA6" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+    <line x1="400" y1="225" x2="416" y2="225" shape-rendering="crispEdges"/>
+    <line x1="225" y1="400" x2="225" y2="416" shape-rendering="crispEdges"/>
+    <line x1="34" y1="225" x2="50" y2="225" shape-rendering="crispEdges"/>
+    <polygon points="65,228 373,228 385,240 385,266 77,266 65,254"/>
+    <rect x="87" y="284" width="84" height="60" shape-rendering="crispEdges"/>
+    <rect x="183" y="284" width="84" height="60" shape-rendering="crispEdges"/>
+    <rect x="279" y="284" width="84" height="60" shape-rendering="crispEdges"/>
+  </g>
+  <g stroke="#79EEFF" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+    <line x1="225" y1="34" x2="225" y2="50" shape-rendering="crispEdges"/>
+    <polyline points="75,122 75,100 97,100" shape-rendering="crispEdges"/>
+    <polyline points="375,122 375,100 353,100" shape-rendering="crispEdges"/>
+    <polyline points="375,190 375,212 353,212" shape-rendering="crispEdges"/>
+    <polyline points="75,190 75,212 97,212" shape-rendering="crispEdges"/>
+    <polyline points="87,298 87,284 101,284" shape-rendering="crispEdges"/>
+    <polyline points="171,330 171,344 157,344" shape-rendering="crispEdges"/>
+    <polyline points="183,298 183,284 197,284" shape-rendering="crispEdges"/>
+    <polyline points="267,330 267,344 253,344" shape-rendering="crispEdges"/>
+    <polyline points="279,298 279,284 293,284" shape-rendering="crispEdges"/>
+    <polyline points="363,330 363,344 349,344" shape-rendering="crispEdges"/>
+  </g>
+  <rect x="73" y="236" width="4" height="22" shape-rendering="crispEdges" fill="#FFB347" stroke="none"/>
+</svg>
