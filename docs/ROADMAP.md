@@ -80,10 +80,13 @@ Started 2026-10-15. Test list: [WATCH-FACE-STUDIO.md](WATCH-FACE-STUDIO.md#what-
 - [x] Tap actions open the right apps
 - [x] Round-screen edge clipping: nothing clipped in the capture
 - [x] Next-event empty state (`No upcoming events`)
-- [ ] Long event titles with real calendar data (checked only in the editor)
-- [ ] Low-battery amber state on the watch
+- [ ] Long event titles with real calendar data (checked only in the editor). Blocked on 2026-10-15: a test event created in Google Calendar did not reach the watch because the watch's Bluetooth link to the phone was off. Repeat with Bluetooth on.
+- [x] Low-battery amber state on the watch (amber at 10 % and 15 %, cyan at 16 %, forced with `dumpsys battery set level`)
 - [ ] Legibility at arm's length, indoors and in sunlight
-- [ ] Double-digit hours against the clock frame, on the watch
+- [x] Double-digit hours against the clock frame, on the watch (`10:15`, `11:15`, `12:15`; about 32 px clearance per side)
+- [x] Clock and date centred on the face (boxes narrowed from 295 to 290 px; measured centred on the watch)
+- [x] Heart-rate no-reading state seen: off the wrist for about 5 minutes the last reading stays; `0` never shown
+- [x] Bigger module values: stacked layout, 22 px ([D-027](DECISIONS.md#d-027-stacked-data-modules-with-22-px-values)), installed and seen on the watch
 - [ ] Weather icons across real conditions (only partly cloudy seen)
 - [ ] Compass shortcut opens the Compass app (not built)
 - [x] Record findings in [TROUBLESHOOTING.md](TROUBLESHOOTING.md) and [DESIGN-SPEC.md](DESIGN-SPEC.md)
@@ -93,7 +96,7 @@ Started 2026-10-15. Test list: [WATCH-FACE-STUDIO.md](WATCH-FACE-STUDIO.md#what-
 - [x] Design the always-on layout ([D-025](DECISIONS.md#d-025-always-on-layout))
 - [x] Generate any always-on assets (none needed)
 - [x] Implement it in Watch Face Studio
-- [ ] See it on the watch screen
+- [x] See it on the watch screen (checked by the project owner on 2026-10-15; screen capture cannot record it)
 - [ ] Measure battery drain over a full day
 - [ ] Check for burn-in risk
 - [ ] Reduce layers or assets if performance requires it

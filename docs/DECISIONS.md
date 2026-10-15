@@ -262,7 +262,7 @@ The canonical record of locked architecture and design decisions for Syswatch 01
 - **Status:** Locked
 - **Decision:** Always-on mode shows only the time, AM/PM and date, in secondary blue `#087DA6` on a black background. The grid, HUD frame, seconds ring, event strip and the three modules are hidden. The colon does not blink.
 - **Rationale:** The project owner's brief asks for few bright pixels, no seconds animation and low burn-in risk while keeping the identity. Watch Face Studio shares colours between modes, so the dim layers are separate copies (`TIME_AOD`, `DATE_AOD`, `TIME_PERIOD_AOD`) hidden in normal mode.
-- **Not yet verified:** How it looks on the watch, and its battery drain.
+- **Verified:** On 2026-10-15 the project owner looked at the dozing watch and confirmed it shows only the time, AM/PM and date in dim blue, readable and not cut off. Battery drain is not yet measured.
 - **Evidence:** The Always-On tab of `watch-face/Syswatch 01.wfs`.
 
 ## D-026: Low-battery amber state
@@ -271,4 +271,13 @@ The canonical record of locked architecture and design decisions for Syswatch 01
 - **Status:** Locked
 - **Decision:** The battery percentage turns amber `#FFB347` at 15 % or less and is primary cyan from 16 %. Implemented as two text layers on the Watch Face Studio battery timeline (0–15 and 16–100).
 - **Rationale:** The project owner's brief allows amber only for a warning state. This adds one amber element to the list in the design spec's colour rules.
-- **Evidence:** `BATT_VALUE` and `BATT_VALUE_LOW` in `watch-face/Syswatch 01.wfs`.
+- **Evidence:** `BATT_VALUE` and `BATT_VALUE_LOW` in `watch-face/Syswatch 01.wfs`. Seen on the watch on 2026-10-15: amber at 10 % and 15 %, cyan at 16 % (`watch-face/captures/v1-battery-15-amber.png`, `v1-battery-16-cyan.png`).
+
+## D-027: Stacked data modules with 22 px values
+
+- **Date:** 2026-10-15
+- **Status:** Locked
+- **Decision:** Each data module stacks its content inside the unchanged 84×60 frame: a 22×22 icon with the label (Departure Mono 11, secondary) beside it on the top row, and the value below it in Departure Mono 22 (2× the design size), left-aligned. Group at module x + 4, y 288, 76×52.
+- **Supersedes:** The side-by-side module layout with a 28×28 icon and a size-16 value.
+- **Rationale:** The project owner found the 16 px values tiring to read on the watch and asked for bigger values without breaking the layout. At 22 px, `100%` is 56 px wide and no longer fits beside a 28 px icon, so the value moved to its own row. 22 is a whole multiple of Departure Mono's 11 px design size, so it stays crisp. The owner chose this layout over a 20 px side-by-side variant.
+- **Evidence:** `HR_MODULE`, `BATT_MODULE`, `WX_MODULE` in `watch-face/Syswatch 01.wfs`; `watch-face/captures/v1-modules-22px.png`.

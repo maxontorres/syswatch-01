@@ -264,6 +264,37 @@ Notes:
 
 **Fix.** Wake the watch first: `adb shell input keyevent KEYCODE_WAKEUP`. Always-on mode has to be checked by eye.
 
+## The watch drops off wireless adb
+
+**Symptom.** `adb devices` shows the watch as `offline` or not at all, and `adb connect <ip>:<port>` times out.
+
+**Cause.** Seen on 2026-10-15 in three cases: after `adb kill-server`; after `adb shell content query --uri content://com.android.calendar/...` (twice, the query hung and then the connection closed); and while the watch lay off the wrist, when it seems to turn Wi-Fi off.
+
+**Fix.** Do not query the calendar provider over adb, and avoid `adb kill-server`. Wake the watch, check Developer options → Wireless debugging, then `adb connect <ip>:<port>`. If `adb devices` then lists the watch twice (as the IP and as an `adb-…._adb-tls-connect._tcp` name), it is the same watch; pick one with `ANDROID_SERIAL=<ip>:<port>` or `-s`.
+
+## Testing other hours without waiting
+
+**Symptom.** You need to see `10:08`–`12:59` on the watch now.
+
+**Cause.** `cmd time_zone_detector suggest_manual_time_zone` is refused to the adb shell (`SUGGEST_MANUAL_TIME_AND_ZONE`), but the shell has `SET_TIME_ZONE`.
+
+**Fix.** With the owner's OK:
+
+```powershell
+adb shell cmd time_zone_detector set_auto_detection_enabled false
+adb shell cmd alarm set-timezone Etc/GMT-1
+```
+
+`Etc/GMT-N` is UTC+N. Restore afterwards with `adb shell cmd alarm set-timezone <original zone>` and `adb shell cmd time_zone_detector set_auto_detection_enabled true`. The original zone on 2026-10-15 was `Asia/Vientiane`.
+
+## A test calendar event does not appear on the watch
+
+**Symptom.** An event added to the phone's calendar never shows in the next-event strip.
+
+**Cause.** The watch gets calendar data from the phone over Bluetooth. On 2026-10-15 Bluetooth was off.
+
+**Fix.** Turn Bluetooth on, open the Calendar app on the watch to confirm the event arrived, then look at the face.
+
 ## The editor shows every weather icon at once
 
 **Symptom.** In the weather module, the Watch Face Studio canvas shows all 11 icons on top of each other, and the seconds ring and clock do not move.

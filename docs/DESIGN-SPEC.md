@@ -217,7 +217,7 @@ These have been judged on a desktop screen at 1:1 only. **Legibility at the phys
 
 ## Ambient / always-on display
 
-**Designed and built in Watch Face Studio ([D-025](DECISIONS.md#d-025-always-on-layout)); not yet seen on the watch screen.**
+**Designed and built in Watch Face Studio ([D-025](DECISIONS.md#d-025-always-on-layout)). Seen on the watch by the project owner on 2026-10-15: only time, AM/PM and date, dim blue, readable, nothing cut off.** Screen capture cannot record it.
 
 | Element | Always-on |
 | --- | --- |
@@ -231,7 +231,7 @@ No new assets were needed. Still open:
 
 - Burn-in: the time does not shift position. Whether the watch's own pixel shifting is enough is untested.
 - Battery impact, measured on the watch.
-- Whether `#087DA6` is readable at the watch's always-on brightness.
+- Whether `#087DA6` is readable outdoors at the watch's always-on brightness (it was readable indoors).
 
 ## Open design questions
 
@@ -241,9 +241,9 @@ These are unresolved in the repository. Do not answer them by assumption; raise 
 2. **Weather module content.** Resolved for the watch face by [D-023](DECISIONS.md#d-023-weather-module-shows-temperature): condition icon and temperature. Whether rain probability returns is open.
 3. **Calendar icon.** Resolved by [D-024](DECISIONS.md#d-024-system-calendar-icon-accepted-in-the-event-strip): the system calendar icon is shown; the generated one is not used.
 4. **Event strip details.** Partly resolved: text is truncated with an ellipsis (about 23 characters fit after the icon), and the provider's empty state is `No upcoming events`. The event time format is whatever the calendar provider sends.
-5. **Heart-rate formatting.** Not zero-padded on the watch (`65`). With no reading the editor shows `0`; what the watch shows is untested.
-6. **Double-digit hours.** The watch face's clock uses stored font height 88, not 99 px. Confirm double-digit hours on the watch before choosing.
-7. **Always-on display.** Designed; see above. Not yet seen on the watch.
+5. **Heart-rate formatting.** Not zero-padded on the watch (`65`). With no reading the editor shows `0`. On the watch, after about 5 minutes off the wrist, the last reading stayed on screen (`68`); `0` was not seen. Whether to show `--` is still open.
+6. **Double-digit hours.** The watch face's clock uses stored font height 88, not 99 px. On the watch, `10:15`, `11:15` and `12:15` fit with about 32 px of clearance per side to the brackets (canvas px). Whether to go to 99 px is still the owner's choice; at 88 there is room.
+7. **Always-on display.** Seen on the watch; see above.
 8. **Stale sample.** The clock font comparison faces show `18°` beside a partly-cloudy icon. Temperature is now a Version 1 feature of the watch face, so the sample is no longer wrong, but those faces are still not the production layout.
 
 ## Watch Face Studio Version 1 (as built)
@@ -253,11 +253,11 @@ The `.wfs` project in [watch-face/](../watch-face/README.md) differs from the ge
 | Element | Generated design (above) | Watch face, 2026-10-15 |
 | --- | --- | --- |
 | Interface font | Share Tech Mono | Departure Mono ([D-022](DECISIONS.md#d-022-departure-mono-for-all-text-in-the-watch-face-studio-build)) |
-| Clock | Departure Mono 99 px | Departure Mono, stored font height 88 (unchanged from the project as it was found) |
-| Date | 20 px, amber middle dot | Departure Mono, Watch Face Studio size 18, all primary cyan |
+| Clock | Departure Mono 99 px | Departure Mono, stored font height 88 (unchanged from the project as it was found). Box 80, 106 · 290×100, centred on x 225 |
+| Date | 20 px, amber middle dot | Departure Mono, Watch Face Studio size 18, all primary cyan. Box 80, 61 · 290×28, centred on x 225 |
 | AM/PM | Above the clock area | Below the clock's right end, at x 331, y 185 |
 | Event strip | Amber bar, text from x 87 | Amber bar, then the system calendar icon 22×22 at x 85, y 236, then text from x 113, width 258, Departure Mono size 16, primary cyan |
-| Module content | 28 px icon, label 12 px, value 16 px | 28×28 icon at module x + 4, y 300; label (size 11, secondary) and value (size 16, primary) from module x + 38, 44 px wide |
+| Module content | 28 px icon, label 12 px, value 16 px | Stacked ([D-027](DECISIONS.md#d-027-stacked-data-modules-with-22-px-values)): 22×22 icon at module x + 4, y 288; label (size 11, secondary) at module x + 30, y 292; value (size 22, primary, left-aligned) at module x + 6, y 312, 74×28 |
 | Module 3 | `RAIN` and rain probability | `TEMP` and `[WTHR_TEM]°`, icon by `[WTHR_COND]` |
 | Seconds ring | Generated base and active images, stepped reveal | Watch Face Studio circular progress bar driven by `[SEC]` (0–59), primary cyan, 12 % background, 4 px |
 | Tap targets | Not specified | Heart rate, Battery, Samsung Weather |

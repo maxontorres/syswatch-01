@@ -17,7 +17,13 @@ Findings and plan for building Syswatch 01 in Samsung Watch Face Studio.
 | Next-event complication | "Long text" type, default provider "Next event", fixed. Its "Image + Long Text" layout shows the provider's calendar image; the text-only layout does not. Long text is truncated with an ellipsis. Empty state: `No upcoming events`. |
 | Open App actions | Built-in targets include Heart rate and Battery Status. Weather is not built in; "Custom" with App ID `com.samsung.android.watch.weather` works. All three were tapped on the watch and opened the right app. |
 | Battery condition | The battery timeline shows a layer only inside its percentage range; used for the amber low-battery value |
-| Always-on | Its own tab with separate visibility per layer; colours are shared with normal mode. Not yet seen on the watch, because `adb screencap` returns black while the watch dozes. |
+| Always-on | Its own tab with separate visibility per layer; colours are shared with normal mode. `adb screencap` returns black while the watch dozes, so it was checked by eye: the project owner confirmed only time, AM/PM and date, dim blue, readable. |
+| Low battery | The battery timeline switch works on the watch: amber at 10 % and 15 %, cyan at 16 % (`dumpsys battery set level`, then `dumpsys battery reset`). |
+| Double-digit hours | `10:15`, `11:15`, `12:15` fit inside the clock brackets at stored font height 88. Tested by switching the time zone (see [TROUBLESHOOTING.md](TROUBLESHOOTING.md#testing-other-hours-without-waiting)). |
+| Text box centring | Text is centred on its own box, not on the canvas. The clock and date boxes were 295 px wide at x 80 (centre 227.5); narrowed to 290 px so they centre on 225. Measured centred on the watch. |
+| Heart rate, no reading | Off the wrist for about 5 minutes, `[HR]` keeps the last reading (`68`). `0` shows only in the editor. |
+| Group resize | Changing a group's width or height scales its children (positions and sizes, not font size). Set the group first, then set each child. Shift-click selects several layers, and position and size then apply to all of them. |
+| Long event titles | Not seen on the watch: the test event did not sync because the watch's Bluetooth was off. |
 | Editor preview | Does not animate the clock or seconds ring and does not preview weather conditions (all weather icons are drawn at once). Check those on the watch. |
 
 How to read the confidence labels:

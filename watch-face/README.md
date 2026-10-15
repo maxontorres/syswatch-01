@@ -8,6 +8,9 @@ Watch Face Studio does not accept hyphens in project file names, so the file is 
 | --- | --- |
 | `Syswatch 01.wfs` | The project: a zip holding `honeyface.json` (layers and settings), the imported PNGs and the bundled Departure Mono font. Edit it only in Watch Face Studio. |
 | `captures/v1-normal-galaxy-watch9.png` | Screen capture from the watch after the first Version 1 install (live data, 4:04 PM). |
+| `captures/v1-battery-15-amber.png`, `captures/v1-battery-16-cyan.png` | Battery forced to 15 % and 16 % with `dumpsys battery set level`: amber and cyan (old module layout). |
+| `captures/v1-hour-10.png`, `captures/v1-hour-12.png` | Double-digit hours, by switching the time zone (old module layout, before the centring fix). |
+| `captures/v1-modules-22px.png` | After the 2026-10-15 update: stacked modules with 22 px values, clock and date centred. |
 
 Watch Face Studio writes build output to a `build/` folder beside the project when it runs on a device. `build/` is ignored by `.gitignore`.
 
@@ -23,34 +26,36 @@ To capture the watch screen: `adb exec-out screencap -p > capture.png`. This wor
 
 ## Layer structure
 
-Top of the list is drawn on top. All coordinates are canvas pixels on the 450×450 canvas.
+Top of the list is drawn on top. All coordinates are canvas pixels on the 450×450 canvas; positions inside a group are relative to the group (the Watch Face Studio properties panel shows them as canvas positions).
+
+The clock and date boxes are 290 px wide at x 80 so they centre on x 225. Until 2026-10-15 they were 295 px wide, which put both about 2.5 px right of centre.
 
 | Layer | Type | Position, size | Normal | Always-on | Notes |
 | --- | --- | --- | --- | --- | --- |
 | `TIME_PERIOD_AOD` | Text `[AMPM]` | 331, 185 · 45×26 | hidden | shown | Departure Mono 18, `#087DA6` |
-| `DATE_AOD` | Text | 80, 61 · 295×28 | hidden | shown | Copy of `DATE` in `#087DA6` |
-| `TIME_AOD` | Digital clock | 80, 106 · 295×100 | hidden | shown | Copy of `TIME` in `#087DA6`, colon not blinking |
-| `WX_MODULE` | Group | 283, 297 · 78×35 | shown | hidden | Tap opens `com.samsung.android.watch.weather` |
-| ├ `WX_ICON_*` (11 layers) | Image 28×28 | 0, 3 in group | by condition | — | Weather condition timeline, see below |
-| ├ `WX_LABEL` | Text `TEMP` | 34, 0 · 44×14 | shown | — | Departure Mono 11, `#087DA6` |
-| └ `WX_TEMP` | Text `[WTHR_TEM]°` | 34, 15 · 44×20 | shown | — | Departure Mono 16, `#79EEFF` |
-| `BATT_MODULE` | Group | 187, 297 · 78×35 | shown | hidden | Tap opens Battery status |
-| ├ `BATT_VALUE_LOW` | Text `[BATT_PER]%` | 34, 15 · 44×20 | battery 0–15 % | — | Amber `#FFB347` |
-| ├ `BATT_LABEL` | Text `BATT` | 34, 0 · 44×14 | shown | — | |
-| ├ `BATT_VALUE` | Text `[BATT_PER]%` | 34, 15 · 44×20 | battery 16–100 % | — | `#79EEFF` |
-| └ `BATT_ICON` | Image `battery.png` | 0, 3 · 28×28 | shown | — | |
-| `HR_MODULE` | Group | 91, 297 · 78×35 | shown | hidden | Tap opens Heart rate (Samsung Health) |
-| ├ `HR_LABEL` | Text `HR` | 34, 0 · 44×14 | shown | — | |
-| ├ `HR_VALUE` | Text `[HR]` | 34, 15 · 44×20 | shown | — | |
-| └ `HR_ICON` | Image `heart.png` | 0, 3 · 28×28 | shown | — | |
+| `DATE_AOD` | Text | 80, 61 · 290×28 | hidden | shown | Copy of `DATE` in `#087DA6` |
+| `TIME_AOD` | Digital clock | 80, 106 · 290×100 | hidden | shown | Copy of `TIME` in `#087DA6`, colon not blinking |
+| `WX_MODULE` | Group | 283, 288 · 76×52 | shown | hidden | Tap opens `com.samsung.android.watch.weather` |
+| ├ `WX_ICON_*` (11 layers) | Image 22×22 | 0, 0 in group | by condition | — | Weather condition timeline, see below |
+| ├ `WX_LABEL` | Text `TEMP` | 26, 4 · 50×14 | shown | — | Departure Mono 11, `#087DA6`, left-aligned |
+| └ `WX_TEMP` | Text `[WTHR_TEM]°` | 2, 24 · 74×28 | shown | — | Departure Mono 22, `#79EEFF`, left-aligned |
+| `BATT_MODULE` | Group | 187, 288 · 76×52 | shown | hidden | Tap opens Battery status |
+| ├ `BATT_VALUE_LOW` | Text `[BATT_PER]%` | 2, 24 · 74×28 | battery 0–15 % | — | Departure Mono 22, amber `#FFB347` |
+| ├ `BATT_LABEL` | Text `BATT` | 26, 4 · 50×14 | shown | — | |
+| ├ `BATT_VALUE` | Text `[BATT_PER]%` | 2, 24 · 74×28 | battery 16–100 % | — | Departure Mono 22, `#79EEFF` |
+| └ `BATT_ICON` | Image `battery.png` | 0, 0 · 22×22 | shown | — | |
+| `HR_MODULE` | Group | 91, 288 · 76×52 | shown | hidden | Tap opens Heart rate (Samsung Health) |
+| ├ `HR_LABEL` | Text `HR` | 26, 4 · 50×14 | shown | — | |
+| ├ `HR_VALUE` | Text `[HR]` | 2, 24 · 74×28 | shown | — | Departure Mono 22 |
+| └ `HR_ICON` | Image `heart.png` | 0, 0 · 22×22 | shown | — | |
 | `EVENT_ICON_COVER` | Rectangle | 105, 234 · 64×26 | hidden | hidden | Obsolete experiment, kept hidden, not deleted |
 | `NEXT_EVENT` | Complication, fixed, Next event, Long text "Image + Long Text" | 83, 233 · 290×28 | shown | hidden | |
 | ├ `Image` | Complication small image | 2, 3 · 22×22 | | | The system calendar icon, square |
 | └ `Long Text` | Complication text | 30, 4 · 258×20 | | | Departure Mono 16, `#79EEFF`, left-aligned, ellipsis when too long |
 | `SECONDS_RING` | Circular progress bar `[SEC]` 0–59 | 1, 1 · 448×448 | shown | hidden | `#79EEFF`, 12 % background, 4 px, clockwise from 12 o'clock |
-| `DATE` | Text | 80, 61 · 295×28 | shown | hidden | Departure Mono 18, `#79EEFF` |
+| `DATE` | Text | 80, 61 · 290×28 | shown | hidden | Departure Mono 18, `#79EEFF` |
 | `TIME_PERIOD` | Text `[AMPM]` | 331, 185 · 45×26 | shown | hidden | |
-| `TIME` | Digital clock, 12 h, no leading zero | 80, 106 · 295×100 | shown | hidden | Departure Mono, `#79EEFF`, blinking colon |
+| `TIME` | Digital clock, 12 h, no leading zero | 80, 106 · 290×100 | shown | hidden | Departure Mono, `#79EEFF`, blinking colon |
 | `HUD_FRAME` | Image `hud-frame.png` | 0, 0 · 450×450 | shown | hidden | |
 | `BG_GRID` | Image `background-grid.png` | 0, 0 · 450×450 | shown | hidden | |
 

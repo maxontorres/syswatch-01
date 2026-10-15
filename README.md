@@ -20,7 +20,7 @@ Verified against the repository and a physical watch on 2026-10-15. Details and 
 | **Implemented in Watch Face Studio and running on a watch** | Version 1 face in [watch-face/](watch-face/README.md): clock, AM/PM, date, next event with the system calendar icon, seconds ring, heart rate, battery with a low-battery amber state, weather icon by condition with temperature, and an always-on layout. Installed and checked on a Galaxy Watch9 on 2026-10-15. |
 | **Generated and visually reviewed** | The production preview (`asset-generator/dist/previews/production-preview.png`): one 450×450 face with sample data. It is the generator's reference image, not the watch face. The watch face differs from it; see [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md#watch-face-studio-version-1-as-built). |
 | **Not implemented** | Compass shortcut (no position on the face), rain probability (the weather module shows temperature instead). |
-| **Still to test on the watch** | Always-on mode as seen on the screen, long event titles with real calendar data, weather icons across several real conditions, legibility outdoors, battery drain over a day. |
+| **Still to test on the watch** | Long event titles with real calendar data (blocked: Bluetooth was off), weather icons across several real conditions, legibility outdoors, battery drain over a day. |
 | **Future ideas** | Live compass heading, distance from home, gym routines, a custom navigation interface, a native Wear OS implementation. |
 
 ## Version 1 features
@@ -36,11 +36,11 @@ Status of each feature on the watch, checked on 2026-10-15.
 | Next calendar event | One line in the event strip, system calendar icon on the left | Running; empty state `No upcoming events` seen on the watch |
 | Seconds | Progress ring around the edge, driven by `[SEC]` | Running |
 | Heart rate | Data module; tap opens Heart rate | Running |
-| Battery | Percentage, data module; amber at 15 % or less; tap opens Battery | Running (amber state not yet seen on the watch) |
+| Battery | Percentage, data module; amber at 15 % or less; tap opens Battery | Running; amber seen at 10 % and 15 % |
 | Weather | Condition icon from the generated set, and temperature; tap opens Samsung Weather | Running |
 | Rain | Probability in percent | Not implemented in Version 1 ([D-023](docs/DECISIONS.md#d-023-weather-module-shows-temperature)) |
 | Compass | Shortcut that opens the Compass app | Not implemented: no position on the face |
-| Always-on display | Dimmed time, AM/PM and date only | Built in Watch Face Studio; not yet seen on the watch screen |
+| Always-on display | Dimmed time, AM/PM and date only | Running; checked by eye on the watch |
 
 ### Explicit Version 1 exclusions
 
@@ -266,9 +266,9 @@ A rebuild of unchanged sources must leave `git status` unchanged under `asset-ge
 
 What runs on the watch:
 
-- Normal mode: grid, HUD frame, seconds ring, 12-hour clock, AM/PM, date, next-event strip, heart-rate, battery and weather modules. All were checked on the watch with live data.
+- Normal mode: grid, HUD frame, seconds ring, 12-hour clock, AM/PM, date, next-event strip, heart-rate, battery and weather modules. All were checked on the watch with live data. The modules use a stacked layout with 22 px values ([D-027](docs/DECISIONS.md#d-027-stacked-data-modules-with-22-px-values)).
 - Tap actions: heart-rate module → Heart rate (Samsung Health), battery module → Battery, weather module → Samsung Weather. All three were tapped on the watch and opened the right app.
-- Always-on mode: only the time, AM/PM and date, in secondary blue `#087DA6` on black. The seconds ring, grid, frame, event strip and modules are hidden. It is built in Watch Face Studio but was **not seen on the watch screen**, because screen capture returns black while the watch dozes.
+- Always-on mode: only the time, AM/PM and date, in secondary blue `#087DA6` on black. The seconds ring, grid, frame, event strip and modules are hidden. Screen capture returns black while the watch dozes, so it was checked by eye on 2026-10-15 and looks as designed.
 
 Deployment steps and the full layer list are in [watch-face/README.md](watch-face/README.md). Findings about Watch Face Studio itself are in [docs/WATCH-FACE-STUDIO.md](docs/WATCH-FACE-STUDIO.md).
 
@@ -287,8 +287,8 @@ Summary only; [docs/LICENSING.md](docs/LICENSING.md) is authoritative.
 - The compass icon exists, but no layout area contains it. Version 1 on the watch has no compass shortcut.
 - Rain probability is not shown; the weather module shows temperature ([D-023](docs/DECISIONS.md#d-023-weather-module-shows-temperature)).
 - The next-event strip shows the system calendar icon, not the generated `calendar` icon. A complication's image comes from the calendar provider and cannot be replaced ([D-024](docs/DECISIONS.md#d-024-system-calendar-icon-accepted-in-the-event-strip)).
-- Always-on mode is built but was not seen on the watch screen.
-- The amber low-battery state, long real event titles and weather conditions other than partly cloudy were checked only in the Watch Face Studio editor, not on the watch.
+- Long real event titles and weather conditions other than partly cloudy were checked only in the Watch Face Studio editor, not on the watch.
+- With no heart-rate reading the watch keeps showing the last value; there is no visible no-reading state.
 - The Watch Face Studio editor does not preview weather conditions or seconds; it draws all weather icons at once and a static ring.
 - Several sizes in the Watch Face Studio project differ from [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md): the clock's stored font height is 88, not 99 px, and all text uses Departure Mono. See [DESIGN-SPEC.md](docs/DESIGN-SPEC.md#watch-face-studio-version-1-as-built).
 - The production preview (`asset-generator`) still shows the earlier design: rain probability, no calendar icon, Share Tech Mono interface text.
@@ -303,7 +303,7 @@ Summary only; [docs/LICENSING.md](docs/LICENSING.md) is authoritative.
 | 2. Final production preview | Generated; lags behind the watch face |
 | 3. Watch Face Studio assembly | Version 1 done; compass shortcut not placed |
 | 4. Device installation and testing | Installed on a Galaxy Watch9; partly tested |
-| 5. Always-on display and optimization | Always-on layout built; not seen on the watch, battery not measured |
+| 5. Always-on display and optimization | Always-on layout built and seen on the watch; battery not measured |
 | 6. Possible future custom Wear OS implementation | Idea only |
 
 Full list: [docs/ROADMAP.md](docs/ROADMAP.md).
@@ -351,9 +351,9 @@ The next work is the remaining Phase 4 testing on the watch (always-on mode, low
 - Decide whether rain probability returns, for example as a second line in the weather module.
 - Bring the clock to the specified 99 px, or record 88 as the decision, after checking double-digit hours on the watch.
 - Add the amber middle dot to the date (it needs a separate text layer in Watch Face Studio).
-- Show `--` instead of `0` when there is no heart-rate reading.
+- Heart rate: the watch keeps the last reading rather than showing `0`; decide whether anything else is needed.
 - Update the generator's production preview to match the watch face.
-- Check the always-on mode in person and measure its battery drain.
+- Measure the always-on mode's battery drain.
 
 ## Last verification
 
