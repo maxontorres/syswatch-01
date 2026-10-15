@@ -1,8 +1,24 @@
 # Watch Face Studio implementation guide
 
-A practical plan for assembling Syswatch 01 in Samsung Watch Face Studio.
+Findings and plan for building Syswatch 01 in Samsung Watch Face Studio.
 
-**Status: not started.** There is no `.wfs` project in the repository and `watch-face/` is empty. Watch Face Studio has not been opened for this project, no asset has been imported, and nothing has run on a watch. **Everything in this document is a plan.**
+**Status: Version 1 built and installed (2026-10-15).** The project is [`watch-face/Syswatch 01.wfs`](../watch-face/README.md); its layers, weather mapping and deployment steps are documented there. This file records what was verified in Watch Face Studio and on the watch, and keeps the original plan below for the parts that are still open. Where the plan and the build differ, the build is described in [DESIGN-SPEC.md](DESIGN-SPEC.md#watch-face-studio-version-1-as-built).
+
+## Verified on 2026-10-15
+
+| Item | Finding |
+| --- | --- |
+| Watch Face Studio version | 1.9.9 |
+| Watch | Galaxy Watch9, SM-L350, Android 17 (API 37), wireless adb |
+| Tags used and seen working on the watch | `[HR]`, `[BATT_PER]`, `[WTHR_TEM]`, `[SEC]` (seconds ring), `[AMPM]`, the 12-hour digital clock, the date tags already in the project |
+| Weather condition | Watch Face Studio's weather timeline has 16 columns in this order: Unknown, Clear, Cloudy, Fog, Heavy Rain, Heavy Snow, Rain, Snow, Sunny, Thunder Storm, Sleet, Light Snow, Light Rain, Mist, Partly Cloudy, Windy. The project stores them as 0–15, which matches Samsung's documented `[WTHR_COND]` list below. On the watch the partly-cloudy icon showed; other conditions are not yet seen. |
+| Weather tags in the installed version | Found in the application: `[WTHR_CHANCE_PPTN]`, `[WTHR_COND]`, `[WTHR_COND_NAME]`, `[WTHR_DAY_TEM_HIGH]`, `[WTHR_DAY_TEM_LOW]`, `[WTHR_IS_AVAIL]`, `[WTHR_IS_DAY]`, `[WTHR_LAST_UPDATED]`, `[WTHR_TEM]`, `[WTHR_TEM_UNIT]`, `[WTHR_UV_INDEX]` |
+| Departure Mono | Bundled in the `.wfs` and rendered as crisp pixels on the watch |
+| Next-event complication | "Long text" type, default provider "Next event", fixed. Its "Image + Long Text" layout shows the provider's calendar image; the text-only layout does not. Long text is truncated with an ellipsis. Empty state: `No upcoming events`. |
+| Open App actions | Built-in targets include Heart rate and Battery Status. Weather is not built in; "Custom" with App ID `com.samsung.android.watch.weather` works. All three were tapped on the watch and opened the right app. |
+| Battery condition | The battery timeline shows a layer only inside its percentage range; used for the amber low-battery value |
+| Always-on | Its own tab with separate visibility per layer; colours are shared with normal mode. Not yet seen on the watch, because `adb screencap` returns black while the watch dozes. |
+| Editor preview | Does not animate the clock or seconds ring and does not preview weather conditions (all weather icons are drawn at once). Check those on the watch. |
 
 How to read the confidence labels:
 
@@ -12,7 +28,7 @@ How to read the confidence labels:
 | **Unverified** | An assumption about how Watch Face Studio works. Confirm it in the tool before relying on it. |
 | **Open** | A design question that must be answered first; see [DESIGN-SPEC.md](DESIGN-SPEC.md#open-design-questions). |
 
-Record the installed Watch Face Studio version here when work starts: `<not yet recorded>`.
+Installed Watch Face Studio version: 1.9.9 (recorded 2026-10-15).
 
 ## Tag expressions
 
@@ -192,7 +208,7 @@ Nothing below has been tested.
 - Always-on display
 - Battery drain over a day
 
-Target watch model and Wear OS version: `<not yet recorded>`.
+Target watch: Galaxy Watch9, SM-L350, Android 17 (API 37), recorded 2026-10-15.
 
 ## Known Watch Face Studio limitations
 
@@ -213,17 +229,19 @@ Replace each expected item with a confirmed finding as it is tested.
 
 ## Checklist for the first .wfs project
 
+Ticked on 2026-10-15. Ticked items were built; see the notes in [DESIGN-SPEC.md](DESIGN-SPEC.md#watch-face-studio-version-1-as-built) where the build differs from the item's wording (for example the clock size and the weather guard, which uses the Unknown condition rather than `[WTHR_IS_AVAIL]`).
+
 Preparation
 
 - [ ] Resolve the open questions in [DESIGN-SPEC.md](DESIGN-SPEC.md#open-design-questions), at least compass placement and the weather module
-- [ ] Install Watch Face Studio and record its version at the top of this file
-- [ ] Record the target watch model and Wear OS version
-- [ ] Run `npm ci` and `npm run build` in `asset-generator`; confirm all four validators pass
+- [x] Install Watch Face Studio and record its version at the top of this file
+- [x] Record the target watch model and Wear OS version
+- [x] Run `npm ci` and `npm run build` in `asset-generator`; confirm all four validators pass
 
 Project
 
-- [ ] Create a 450×450 project and save it as `watch-face/syswatch-01.wfs` (planned path)
-- [ ] Check what Watch Face Studio writes beside the `.wfs` file and update `.gitignore` if it creates build output
+- [x] Create a 450×450 project and save it as `watch-face/syswatch-01.wfs` (planned path; saved as `watch-face/Syswatch 01.wfs` because hyphens are rejected)
+- [x] Check what Watch Face Studio writes beside the `.wfs` file and update `.gitignore` if it creates build output
 - [ ] Add Departure Mono and Share Tech Mono
 
 Static layers
@@ -232,15 +250,15 @@ Static layers
 
 Dynamic components
 
-- [ ] Main clock: `[HOUR_1_12]:[MIN_Z]`, Departure Mono 99 px
-- [ ] AM/PM: `[AMPM]`, Departure Mono 22 px
-- [ ] Date in `DD/MM/YYYY` with weekday
-- [ ] Seconds ring from `[SEC]`
-- [ ] Heart rate: `heart.png` and `[HR]`
-- [ ] Battery: `battery.png` and `[BATT_PER]`
-- [ ] Weather icon from `[WTHR_COND]`, guarded by `[WTHR_IS_AVAIL]`
+- [x] Main clock: `[HOUR_1_12]:[MIN_Z]`, Departure Mono 99 px
+- [x] AM/PM: `[AMPM]`, Departure Mono 22 px
+- [x] Date in `DD/MM/YYYY` with weekday
+- [x] Seconds ring from `[SEC]`
+- [x] Heart rate: `heart.png` and `[HR]`
+- [x] Battery: `battery.png` and `[BATT_PER]`
+- [x] Weather icon from `[WTHR_COND]`, guarded by `[WTHR_IS_AVAIL]`
 - [ ] Rain probability from `[WTHR_CHANCE_PPTN]`
-- [ ] Next-event complication
+- [x] Next-event complication
 - [ ] Compass shortcut
 
 Verification
@@ -248,4 +266,4 @@ Verification
 - [ ] Mark each tag in this file as verified, with the Watch Face Studio version
 - [ ] Compare a screenshot with `asset-generator/dist/previews/production-preview.png`
 - [ ] Test in the Watch Face Studio preview at several times, including `10:08` and `12:59`
-- [ ] Update [ROADMAP.md](ROADMAP.md) and the status section of [../README.md](../README.md)
+- [x] Update [ROADMAP.md](ROADMAP.md) and the status section of [../README.md](../README.md)

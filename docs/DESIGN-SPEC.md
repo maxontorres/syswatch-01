@@ -4,7 +4,7 @@ The canonical visual and behavioural specification for Syswatch 01. Locked decis
 
 Every measurement here was read from `asset-generator/design-tokens.json` and `asset-generator/src/`, or computed from them on 2026-10-10. The reference render is `asset-generator/dist/previews/production-preview.png`.
 
-**Scope of what exists.** This specification is realised only as generated images. Nothing here has been built in Watch Face Studio or seen on a watch. All text and numbers shown on preview faces are sample data.
+**Scope of what exists.** This specification describes the generated images. Version 1 of the watch face was built in Watch Face Studio on 2026-10-15 and differs from it in places; those differences are listed in [Watch Face Studio Version 1 (as built)](#watch-face-studio-version-1-as-built). All text and numbers shown on preview faces are sample data.
 
 ## Canvas
 
@@ -150,7 +150,7 @@ The inactive ring is capped at 48% opacity so it stays behind the clock in the h
 | `color.secondary` | `#087DA6` | Grid, frame outlines, module labels, inactive ring |
 | `color.accent` | `#FFB347` | Amber signals only |
 
-Amber is used for exactly these elements: the date's middle dot, the event strip marker, and one "signal" part of an icon (compass north, the calendar's "today" cell, the sun, lightning). Do not add amber elsewhere without a decision.
+Amber is used for exactly these elements: the date's middle dot, the event strip marker, one "signal" part of an icon (compass north, the calendar's "today" cell, the sun, lightning), and the battery percentage at 15 % or less ([D-026](DECISIONS.md#d-026-low-battery-amber-state)). Do not add amber elsewhere without a decision.
 
 Colours come from `design-tokens.json`. Never hard-code a colour in a definition.
 
@@ -217,25 +217,47 @@ These have been judged on a desktop screen at 1:1 only. **Legibility at the phys
 
 ## Ambient / always-on display
 
-**Pending. Not designed.** No always-on layout, asset or token exists in the repository.
+**Designed and built in Watch Face Studio ([D-025](DECISIONS.md#d-025-always-on-layout)); not yet seen on the watch screen.**
 
-Considerations to resolve when it is designed (none of these is a decision):
+| Element | Always-on |
+| --- | --- |
+| Background | `#000000` |
+| Time | Same position and font as normal mode, secondary blue `#087DA6`, colon not blinking |
+| AM/PM | Same position, `#087DA6` |
+| Date | Same position, `#087DA6` |
+| Seconds ring, grid, HUD frame, event strip, modules | Hidden |
 
-- Which elements remain: likely time, possibly date; the seconds ring cannot update every second in ambient mode.
-- Reducing lit pixels: the grid, inactive ring and frame outlines are candidates for removal.
-- Burn-in protection on OLED and whether outlined or thinner numerals are needed.
-- Whether Departure Mono at 99 px is acceptable as-is in ambient mode.
+No new assets were needed. Still open:
+
+- Burn-in: the time does not shift position. Whether the watch's own pixel shifting is enough is untested.
 - Battery impact, measured on the watch.
+- Whether `#087DA6` is readable at the watch's always-on brightness.
 
 ## Open design questions
 
 These are unresolved in the repository. Do not answer them by assumption; raise them with the project owner and record the outcome in [DECISIONS.md](DECISIONS.md).
 
-1. **Compass shortcut placement.** The `compass` icon exists, but the layout has three modules (heart rate, battery, weather) and no fourth position.
-2. **Weather module content.** The module shows a weather icon with the label `RAIN` and the rain probability. Whether the icon follows the current condition while the label stays `RAIN`, or whether weather and rain should be separate, is not specified.
-3. **Calendar icon.** It exists but no composed face uses it; the event strip uses an amber bar.
-4. **Event strip details.** Maximum length, truncation, event time format, empty state.
-5. **Heart-rate formatting.** Zero-padded (`072`) or not, and what shows when no reading is available.
-6. **Double-digit hours.** Confirm the 1 px clearance at 99 px on the watch, and add a double-digit sample to the production preview.
-7. **Always-on display.** See above.
-8. **Stale sample.** The clock font comparison faces show `18°` beside a partly-cloudy icon. Temperature is not a Version 1 feature.
+1. **Compass shortcut placement.** The `compass` icon exists, but the layout has three modules (heart rate, battery, weather) and no fourth position. Version 1 on the watch has no compass.
+2. **Weather module content.** Resolved for the watch face by [D-023](DECISIONS.md#d-023-weather-module-shows-temperature): condition icon and temperature. Whether rain probability returns is open.
+3. **Calendar icon.** Resolved by [D-024](DECISIONS.md#d-024-system-calendar-icon-accepted-in-the-event-strip): the system calendar icon is shown; the generated one is not used.
+4. **Event strip details.** Partly resolved: text is truncated with an ellipsis (about 23 characters fit after the icon), and the provider's empty state is `No upcoming events`. The event time format is whatever the calendar provider sends.
+5. **Heart-rate formatting.** Not zero-padded on the watch (`65`). With no reading the editor shows `0`; what the watch shows is untested.
+6. **Double-digit hours.** The watch face's clock uses stored font height 88, not 99 px. Confirm double-digit hours on the watch before choosing.
+7. **Always-on display.** Designed; see above. Not yet seen on the watch.
+8. **Stale sample.** The clock font comparison faces show `18°` beside a partly-cloudy icon. Temperature is now a Version 1 feature of the watch face, so the sample is no longer wrong, but those faces are still not the production layout.
+
+## Watch Face Studio Version 1 (as built)
+
+The `.wfs` project in [watch-face/](../watch-face/README.md) differs from the generated design as follows. Positions are canvas pixels.
+
+| Element | Generated design (above) | Watch face, 2026-10-15 |
+| --- | --- | --- |
+| Interface font | Share Tech Mono | Departure Mono ([D-022](DECISIONS.md#d-022-departure-mono-for-all-text-in-the-watch-face-studio-build)) |
+| Clock | Departure Mono 99 px | Departure Mono, stored font height 88 (unchanged from the project as it was found) |
+| Date | 20 px, amber middle dot | Departure Mono, Watch Face Studio size 18, all primary cyan |
+| AM/PM | Above the clock area | Below the clock's right end, at x 331, y 185 |
+| Event strip | Amber bar, text from x 87 | Amber bar, then the system calendar icon 22×22 at x 85, y 236, then text from x 113, width 258, Departure Mono size 16, primary cyan |
+| Module content | 28 px icon, label 12 px, value 16 px | 28×28 icon at module x + 4, y 300; label (size 11, secondary) and value (size 16, primary) from module x + 38, 44 px wide |
+| Module 3 | `RAIN` and rain probability | `TEMP` and `[WTHR_TEM]°`, icon by `[WTHR_COND]` |
+| Seconds ring | Generated base and active images, stepped reveal | Watch Face Studio circular progress bar driven by `[SEC]` (0–59), primary cyan, 12 % background, 4 px |
+| Tap targets | Not specified | Heart rate, Battery, Samsung Weather |

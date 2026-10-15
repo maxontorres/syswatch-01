@@ -44,6 +44,11 @@ The canonical record of locked architecture and design decisions for Syswatch 01
 | [D-019](#d-019-numeric-watch-face-studio-weather-mapping-remains-unverified) | Numeric Watch Face Studio weather mapping remains unverified | Open |
 | [D-020](#d-020-generated-assets-are-committed) | Generated assets are committed | Locked |
 | [D-021](#d-021-colour-palette) | Colour palette | Locked |
+| [D-022](#d-022-departure-mono-for-all-text-in-the-watch-face-studio-build) | Departure Mono for all text in the Watch Face Studio build | Locked |
+| [D-023](#d-023-weather-module-shows-temperature) | Weather module shows temperature | Locked |
+| [D-024](#d-024-system-calendar-icon-accepted-in-the-event-strip) | System calendar icon accepted in the event strip | Locked |
+| [D-025](#d-025-always-on-layout) | Always-on layout | Locked |
+| [D-026](#d-026-low-battery-amber-state) | Low-battery amber state | Locked |
 
 ---
 
@@ -223,3 +228,47 @@ The canonical record of locked architecture and design decisions for Syswatch 01
 - **Decision:** Four colours: background `#02070D`, primary cyan `#79EEFF`, secondary cyan `#087DA6`, amber accent `#FFB347`. Amber is reserved for small signal elements.
 - **Rationale:** A restrained cyan HUD on near-black, with a single warm accent for emphasis. No glow, gradients or extra hues.
 - **Evidence:** `color` in `asset-generator/design-tokens.json`.
+
+## D-022: Departure Mono for all text in the Watch Face Studio build
+
+- **Date:** 2026-10-15
+- **Status:** Locked
+- **Decision:** In the Watch Face Studio project, Departure Mono Regular sets every text layer: clock, AM/PM, date, next event, module labels and values. Share Tech Mono is not bundled in the `.wfs`.
+- **Supersedes:** [D-014](#d-014-share-tech-mono-for-supporting-text) for the watch face. The generator's preview still uses Share Tech Mono.
+- **Rationale:** The project owner's Version 1 brief of 2026-10-15 names Departure Mono as the main font. The date in the existing `.wfs` already used it. On the watch it renders as crisp pixels at the sizes used.
+- **Evidence:** Font settings of every text layer in `watch-face/Syswatch 01.wfs`; `watch-face/captures/v1-normal-galaxy-watch9.png`.
+
+## D-023: Weather module shows temperature
+
+- **Date:** 2026-10-15
+- **Status:** Locked
+- **Decision:** The third module shows the current weather condition icon and the temperature (`[WTHR_TEM]°`, label `TEMP`). Rain probability is not shown in Version 1.
+- **Supersedes:** The `RAIN` label and rain-probability value in the design spec, and the note that temperature is not a Version 1 feature.
+- **Rationale:** The project owner's Version 1 brief of 2026-10-15 asks for "current weather or temperature" with a compact icon. Watch Face Studio supplies both directly, so no complication slot is needed.
+- **Evidence:** `WX_MODULE` in `watch-face/Syswatch 01.wfs`; mapping in [watch-face/README.md](../watch-face/README.md#weather-condition-mapping).
+
+## D-024: System calendar icon accepted in the event strip
+
+- **Date:** 2026-10-15
+- **Status:** Locked
+- **Decision:** The next-event complication uses the Watch Face Studio "Image + Long Text" layout. The calendar provider's image is shown at 22×22 at the left of the strip, and the text starts after it. The earlier attempt to hide the image with a background-coloured rectangle (`EVENT_ICON_COVER`) is abandoned; the layer is kept hidden.
+- **Resolves:** Open design question 3 (calendar icon). The generated `calendar` icon is not used, because a complication's image comes from its provider.
+- **Rationale:** The project owner's brief of 2026-10-15: accept the system icon, make it look intentional, never crop the event text. With the cover the first one and a half words of the text were hidden.
+- **Evidence:** `NEXT_EVENT` in `watch-face/Syswatch 01.wfs`; the watch capture shows the square icon and `No upcoming events`.
+
+## D-025: Always-on layout
+
+- **Date:** 2026-10-15
+- **Status:** Locked
+- **Decision:** Always-on mode shows only the time, AM/PM and date, in secondary blue `#087DA6` on a black background. The grid, HUD frame, seconds ring, event strip and the three modules are hidden. The colon does not blink.
+- **Rationale:** The project owner's brief asks for few bright pixels, no seconds animation and low burn-in risk while keeping the identity. Watch Face Studio shares colours between modes, so the dim layers are separate copies (`TIME_AOD`, `DATE_AOD`, `TIME_PERIOD_AOD`) hidden in normal mode.
+- **Not yet verified:** How it looks on the watch, and its battery drain.
+- **Evidence:** The Always-On tab of `watch-face/Syswatch 01.wfs`.
+
+## D-026: Low-battery amber state
+
+- **Date:** 2026-10-15
+- **Status:** Locked
+- **Decision:** The battery percentage turns amber `#FFB347` at 15 % or less and is primary cyan from 16 %. Implemented as two text layers on the Watch Face Studio battery timeline (0–15 and 16–100).
+- **Rationale:** The project owner's brief allows amber only for a warning state. This adds one amber element to the list in the design spec's colour rules.
+- **Evidence:** `BATT_VALUE` and `BATT_VALUE_LOW` in `watch-face/Syswatch 01.wfs`.

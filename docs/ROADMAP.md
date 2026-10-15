@@ -1,11 +1,9 @@
 # Roadmap
 
-Status of every piece of work, determined from the repository on 2026-10-10.
+Status of every piece of work, determined from the repository on 2026-10-10 and updated for the Watch Face Studio build on 2026-10-15.
 
 - `[x]` means it exists in the repository and was verified, by the build or by inspection.
 - `[ ]` means it is not done. Work that was only discussed is not marked complete.
-
-**Read this first.** At verification time almost all of Phase 1 and Phase 2 existed only as uncommitted files in one working copy. Git tracked four files: `.gitignore`, `README.md`, `asset-generator/package.json` and `asset-generator/package-lock.json`. Until the work is committed, a fresh clone does not contain it.
 
 ## Phase 1 — Asset system
 
@@ -22,7 +20,7 @@ Status of every piece of work, determined from the repository on 2026-10-10.
 - [x] Asset validation, 22 checks
 - [x] Departure Mono and Share Tech Mono bundled with their licences
 - [x] Deterministic output, verified by checksum across a rebuild on Windows
-- [ ] Commit the generator sources, fonts and `dist/` output
+- [x] Commit the generator sources, fonts and `dist/` output
 - [ ] Add a `WINDY` label to the weather mapping, to match Samsung's documented condition names
 - [ ] Decide the project's own licence
 - [ ] Verify deterministic output on a second machine or platform
@@ -38,58 +36,64 @@ Status of every piece of work, determined from the repository on 2026-10-10.
 - [x] Production preview render and page, 13 checks
 - [x] Production render inspected on a desktop screen at 1:1
 - [ ] Decide the compass shortcut's position and add it to the layout and the preview
-- [ ] Specify the weather module: how the condition icon and the rain probability share it
-- [ ] Decide whether the calendar icon is used in the event strip
+- [x] Specify the weather module: condition icon and temperature ([D-023](DECISIONS.md#d-023-weather-module-shows-temperature))
+- [x] Decide whether the calendar icon is used in the event strip (system icon, [D-024](DECISIONS.md#d-024-system-calendar-icon-accepted-in-the-event-strip))
 - [ ] Specify the event strip: maximum length, truncation, time format, empty state
 - [ ] Specify heart-rate formatting and the no-reading state
 - [ ] Add a double-digit hour sample to the production preview
+- [ ] Update the production preview to match the Version 1 watch face
 - [ ] Remove the stale temperature sample (`18°`) from the clock font comparison faces
 - [ ] Record the project owner's sign-off on the production preview
 
 ## Phase 3 — Watch Face Studio assembly
 
-Not started. `watch-face/` is empty. Guide: [WATCH-FACE-STUDIO.md](WATCH-FACE-STUDIO.md).
+Version 1 built on 2026-10-15 in Watch Face Studio 1.9.9. Project: [watch-face/](../watch-face/README.md).
 
-- [ ] Install Watch Face Studio and record its version
-- [ ] Create the 450×450 project at `watch-face/syswatch-01.wfs` (planned path)
-- [ ] Add Departure Mono and Share Tech Mono to the project
-- [ ] Confirm Departure Mono renders pixel-exactly, or build the bitmap-font fallback
-- [ ] Import the structural PNGs
-- [ ] Main clock, 12-hour, no leading zero
-- [ ] AM/PM indicator
-- [ ] Date
-- [ ] Seconds ring driven by seconds
-- [ ] Heart rate
-- [ ] Battery percentage
-- [ ] Weather icon switching by condition
-- [ ] Rain probability
-- [ ] Next-event complication
+- [x] Install Watch Face Studio and record its version (1.9.9)
+- [x] Create the 450×450 project, saved as `watch-face/Syswatch 01.wfs` (Watch Face Studio rejects hyphens in file names)
+- [x] Add Departure Mono to the project ([D-022](DECISIONS.md#d-022-departure-mono-for-all-text-in-the-watch-face-studio-build); Share Tech Mono not used)
+- [x] Confirm Departure Mono renders as crisp pixels (checked on the watch)
+- [x] Import the structural PNGs (grid and HUD frame)
+- [x] Main clock, 12-hour, no leading zero
+- [x] AM/PM indicator
+- [x] Date
+- [x] Seconds ring driven by `[SEC]`
+- [x] Heart rate, with tap to Heart rate
+- [x] Battery percentage, amber at 15 % or less, with tap to Battery
+- [x] Weather icon switching by condition (11 generated icons on the weather timeline)
+- [x] Temperature in the weather module, with tap to Samsung Weather
+- [ ] Rain probability (replaced by temperature in Version 1, [D-023](DECISIONS.md#d-023-weather-module-shows-temperature))
+- [x] Next-event complication with the system calendar icon ([D-024](DECISIONS.md#d-024-system-calendar-icon-accepted-in-the-event-strip))
 - [ ] Compass shortcut
-- [ ] Verify every tag expression in the installed version
-- [ ] Verify the numeric weather-condition values and record them
-- [ ] Update `.gitignore` for any Watch Face Studio build output
+- [x] Record the tags used and the weather timeline order ([WATCH-FACE-STUDIO.md](WATCH-FACE-STUDIO.md))
+- [x] `.gitignore` already ignores Watch Face Studio `build/` output
+- [ ] Amber middle dot in the date
+- [ ] Heart-rate no-reading state (`--`)
 
 ## Phase 4 — Device installation and testing
 
-Not started. Test list: [WATCH-FACE-STUDIO.md](WATCH-FACE-STUDIO.md#what-must-be-tested-on-the-physical-watch).
+Started 2026-10-15. Test list: [WATCH-FACE-STUDIO.md](WATCH-FACE-STUDIO.md#what-must-be-tested-on-the-physical-watch).
 
-- [ ] Record the target watch model and Wear OS version
-- [ ] Install the watch face on a physical watch
+- [x] Record the target watch model and OS version (Galaxy Watch9 SM-L350, Android 17, API 37)
+- [x] Install the watch face on a physical watch (Run on Device)
+- [x] Each dynamic component with real data, normal mode (one capture, 4:04 PM)
+- [x] Tap actions open the right apps
+- [x] Round-screen edge clipping: nothing clipped in the capture
+- [x] Next-event empty state (`No upcoming events`)
+- [ ] Long event titles with real calendar data (checked only in the editor)
+- [ ] Low-battery amber state on the watch
 - [ ] Legibility at arm's length, indoors and in sunlight
-- [ ] Double-digit hours against the clock frame
-- [ ] Each dynamic component with real data
-- [ ] Weather icons across real conditions
-- [ ] Compass shortcut opens the Compass app
-- [ ] Round-screen edge clipping
-- [ ] Record findings in [TROUBLESHOOTING.md](TROUBLESHOOTING.md) and [DESIGN-SPEC.md](DESIGN-SPEC.md)
+- [ ] Double-digit hours against the clock frame, on the watch
+- [ ] Weather icons across real conditions (only partly cloudy seen)
+- [ ] Compass shortcut opens the Compass app (not built)
+- [x] Record findings in [TROUBLESHOOTING.md](TROUBLESHOOTING.md) and [DESIGN-SPEC.md](DESIGN-SPEC.md)
 
 ## Phase 5 — Always-on display and optimization
 
-Not started and not designed.
-
-- [ ] Design the always-on layout; see [DESIGN-SPEC.md](DESIGN-SPEC.md#ambient--always-on-display)
-- [ ] Generate any always-on assets
-- [ ] Implement it in Watch Face Studio
+- [x] Design the always-on layout ([D-025](DECISIONS.md#d-025-always-on-layout))
+- [x] Generate any always-on assets (none needed)
+- [x] Implement it in Watch Face Studio
+- [ ] See it on the watch screen
 - [ ] Measure battery drain over a full day
 - [ ] Check for burn-in risk
 - [ ] Reduce layers or assets if performance requires it

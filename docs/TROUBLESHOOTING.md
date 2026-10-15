@@ -236,3 +236,38 @@ Notes:
 - There is no clean step. The generators overwrite files in place and delete stale `.svg` and `.png` files they no longer define.
 - If `dist/` changes although no source did, the Sharp version probably changed. Check `git diff package-lock.json`.
 - To discard regenerated output and return to the committed state: `git restore asset-generator/dist`. This applies only once `dist/` has been committed.
+
+## Watch Face Studio rejects the file name
+
+**Symptom.** Save As shows "The file name contains invalid characters".
+
+**Cause.** Watch Face Studio does not allow hyphens (and several other characters) in project file names.
+
+**Fix.** Use letters, digits and spaces. The project is saved as `watch-face/Syswatch 01.wfs`.
+
+## Run on Device fails with `device offline`
+
+**Symptom.** Watch Face Studio lists the watch, then reports "Run on device fail. Failure: 'device offline'".
+
+**Cause.** The wireless adb connection dropped. This happened when other adb commands ran while Watch Face Studio was connecting, and after the watch's debugging port changed.
+
+**Fix.**
+
+1. Check the connection: `adb devices` must show the watch as `device`. If it shows `offline`, run `adb reconnect offline`. If it is missing, read the current address and port under Developer options → Wireless debugging on the watch and run `adb connect <ip>:<port>`; pair again if asked.
+2. Click Run on Device again and run no other adb commands until it reports "Launch Complete".
+
+## Screen capture from the watch is black
+
+**Symptom.** `adb exec-out screencap -p` returns an all-black image.
+
+**Cause.** The watch is dozing (always-on). The capture does not include the always-on layer.
+
+**Fix.** Wake the watch first: `adb shell input keyevent KEYCODE_WAKEUP`. Always-on mode has to be checked by eye.
+
+## The editor shows every weather icon at once
+
+**Symptom.** In the weather module, the Watch Face Studio canvas shows all 11 icons on top of each other, and the seconds ring and clock do not move.
+
+**Cause.** The editor does not preview weather conditions, seconds or the current time.
+
+**Fix.** None needed. Check the module on the watch. The condition assignments can be read in the weather timeline (the cloud icon in the left strip) or in the mapping table in [watch-face/README.md](../watch-face/README.md#weather-condition-mapping).

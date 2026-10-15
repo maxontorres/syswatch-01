@@ -12,34 +12,35 @@ This repository (`syswatch-01`) is the sole source of truth for the project. Not
 
 ## Project status
 
-Verified against the repository on 2026-10-10. Details and checkboxes are in [docs/ROADMAP.md](docs/ROADMAP.md).
+Verified against the repository and a physical watch on 2026-10-15. Details and checkboxes are in [docs/ROADMAP.md](docs/ROADMAP.md).
 
 | State | What |
 | --- | --- |
 | **Implemented** | The `asset-generator`: a deterministic Node.js pipeline that writes 19 production assets (15 icons, 4 structural) as SVG and PNG, a manifest, a semantic weather mapping, four HTML preview pages and 74 automated checks. |
-| **Generated and visually reviewed** | The production preview (`asset-generator/dist/previews/production-preview.png`): one 450×450 face with the locked typography and sample data. Reviewed as an image on a desktop screen only. |
-| **Designed but not implemented in Watch Face Studio** | Everything on the watch itself: clock, AM/PM, date, next event, seconds ring, heart rate, battery, weather icon, rain probability, compass shortcut. |
-| **Designed only partly** | Compass shortcut placement (the icon exists, no face shows it), weather-condition-to-icon switching, always-on display. See [Known limitations](#known-limitations). |
-| **Requires real-watch testing** | Legibility at physical size, every Watch Face Studio tag, weather condition values, the seconds ring, the compass shortcut, battery impact, always-on display. Nothing has been run on a watch. |
+| **Implemented in Watch Face Studio and running on a watch** | Version 1 face in [watch-face/](watch-face/README.md): clock, AM/PM, date, next event with the system calendar icon, seconds ring, heart rate, battery with a low-battery amber state, weather icon by condition with temperature, and an always-on layout. Installed and checked on a Galaxy Watch9 on 2026-10-15. |
+| **Generated and visually reviewed** | The production preview (`asset-generator/dist/previews/production-preview.png`): one 450×450 face with sample data. It is the generator's reference image, not the watch face. The watch face differs from it; see [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md#watch-face-studio-version-1-as-built). |
+| **Not implemented** | Compass shortcut (no position on the face), rain probability (the weather module shows temperature instead). |
+| **Still to test on the watch** | Always-on mode as seen on the screen, long event titles with real calendar data, weather icons across several real conditions, legibility outdoors, battery drain over a day. |
 | **Future ideas** | Live compass heading, distance from home, gym routines, a custom navigation interface, a native Wear OS implementation. |
 
 ## Version 1 features
 
-These are the intended features. None of them runs on a watch yet.
+Status of each feature on the watch, checked on 2026-10-15.
 
-| Feature | Specification |
-| --- | --- |
-| Clock | 12-hour |
-| Hour format | No leading zero for single-digit hours (`6:42`, not `06:42`) |
-| AM/PM | Small indicator above the clock, right-aligned |
-| Date | Weekday and date as `DD/MM/YYYY`, for example `SAT · 10/10/2026` |
-| Next calendar event | One line in the event strip |
-| Seconds | 60-segment progress ring around the edge |
-| Heart rate | Data module |
-| Battery | Percentage, data module |
-| Weather | Condition icon |
-| Rain | Probability in percent |
-| Compass | Shortcut that opens the Compass app |
+| Feature | Specification | Status |
+| --- | --- | --- |
+| Clock | 12-hour | Running on the watch |
+| Hour format | No leading zero for single-digit hours (`6:42`, not `06:42`) | Running (`4:04` seen on the watch) |
+| AM/PM | Small indicator below the clock, right-aligned | Running |
+| Date | Weekday and date as `DD/MM/YYYY`, for example `SAT · 10/10/2026` | Running |
+| Next calendar event | One line in the event strip, system calendar icon on the left | Running; empty state `No upcoming events` seen on the watch |
+| Seconds | Progress ring around the edge, driven by `[SEC]` | Running |
+| Heart rate | Data module; tap opens Heart rate | Running |
+| Battery | Percentage, data module; amber at 15 % or less; tap opens Battery | Running (amber state not yet seen on the watch) |
+| Weather | Condition icon from the generated set, and temperature; tap opens Samsung Weather | Running |
+| Rain | Probability in percent | Not implemented in Version 1 ([D-023](docs/DECISIONS.md#d-023-weather-module-shows-temperature)) |
+| Compass | Shortcut that opens the Compass app | Not implemented: no position on the face |
+| Always-on display | Dimmed time, AM/PM and date only | Built in Watch Face Studio; not yet seen on the watch screen |
 
 ### Explicit Version 1 exclusions
 
@@ -83,7 +84,8 @@ Rules:
 
 - Departure Mono is a pixel font. Use it only at whole multiples of 11 px, at whole-pixel positions, with one uniform scale and no smoothing.
 - Tabular numerals: Departure Mono includes an OpenType `tnum` feature and is monospaced. Share Tech Mono has no `tnum` feature but is monospaced, so its numerals are tabular as drawn.
-- In the generator, text is drawn as vector outlines taken from the font files. Whether Watch Face Studio renders Departure Mono as crisply is **not yet tested**; see [docs/WATCH-FACE-STUDIO.md](docs/WATCH-FACE-STUDIO.md).
+- In the generator, text is drawn as vector outlines taken from the font files.
+- **In the Watch Face Studio project, Departure Mono sets all text**, including the date, event and module text; Share Tech Mono is not bundled in the `.wfs` ([D-022](docs/DECISIONS.md#d-022-departure-mono-for-all-text-in-the-watch-face-studio-build)). On the watch it renders as crisp pixels. Sizes in the project differ from the table above; see [watch-face/README.md](watch-face/README.md#layer-structure).
 
 ## Color tokens
 
@@ -119,18 +121,22 @@ syswatch-01/
 │       ├── previews/           4 HTML pages and their renders
 │       ├── manifest.json       asset and font inventory
 │       └── weather-mapping.json  semantic weather label to icon name
-├── watch-face/                 planned: the Watch Face Studio project (empty)
+├── watch-face/                 the Watch Face Studio project
+│   ├── README.md               layer structure, preview and deployment
+│   ├── Syswatch 01.wfs         the Version 1 project (Watch Face Studio 1.9.9)
+│   └── captures/               screen captures from the physical watch
 └── references/                 planned: concept images (empty)
 ```
 
-`watch-face/` and `references/` are empty. Git does not track empty directories, so they do not exist in a fresh clone. See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md#empty-directories-are-not-tracked-by-git).
+`references/` is empty. Git does not track empty directories, so it does not exist in a fresh clone. See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md#empty-directories-are-not-tracked-by-git).
 
 | Document | Canonical for |
 | --- | --- |
 | [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md) | Visual and behavioural specification |
 | [docs/DECISIONS.md](docs/DECISIONS.md) | Locked decisions and their rationale |
 | [docs/ASSET-PIPELINE.md](docs/ASSET-PIPELINE.md) | How assets are generated, validated and extended |
-| [docs/WATCH-FACE-STUDIO.md](docs/WATCH-FACE-STUDIO.md) | Assembly plan for Watch Face Studio |
+| [docs/WATCH-FACE-STUDIO.md](docs/WATCH-FACE-STUDIO.md) | Watch Face Studio tags, findings and test status |
+| [watch-face/README.md](watch-face/README.md) | The `.wfs` project: layers, weather mapping, deployment |
 | [docs/LICENSING.md](docs/LICENSING.md) | Fonts, dependencies, original assets |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Remaining work, by phase |
 | [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | Known problems and fixes |
@@ -256,7 +262,15 @@ A rebuild of unchanged sources must leave `git status` unchanged under `asset-ge
 
 ## Watch Face Studio status
 
-**The Watch Face Studio project has not been started.** `watch-face/` is empty and the repository contains no `.wfs` file. No asset has been imported into Watch Face Studio and nothing has been installed on a watch. The plan is in [docs/WATCH-FACE-STUDIO.md](docs/WATCH-FACE-STUDIO.md).
+**Version 1 is built and installed.** The project is [`watch-face/Syswatch 01.wfs`](watch-face/README.md), made in Watch Face Studio 1.9.9 and installed with Run on Device on a Galaxy Watch9 (SM-L350) on 2026-10-15. The icons and structural images in it were imported from `asset-generator/dist/png/`; none was redrawn in Watch Face Studio.
+
+What runs on the watch:
+
+- Normal mode: grid, HUD frame, seconds ring, 12-hour clock, AM/PM, date, next-event strip, heart-rate, battery and weather modules. All were checked on the watch with live data.
+- Tap actions: heart-rate module → Heart rate (Samsung Health), battery module → Battery, weather module → Samsung Weather. All three were tapped on the watch and opened the right app.
+- Always-on mode: only the time, AM/PM and date, in secondary blue `#087DA6` on black. The seconds ring, grid, frame, event strip and modules are hidden. It is built in Watch Face Studio but was **not seen on the watch screen**, because screen capture returns black while the watch dozes.
+
+Deployment steps and the full layer list are in [watch-face/README.md](watch-face/README.md). Findings about Watch Face Studio itself are in [docs/WATCH-FACE-STUDIO.md](docs/WATCH-FACE-STUDIO.md).
 
 ## Licensing
 
@@ -270,25 +284,26 @@ Summary only; [docs/LICENSING.md](docs/LICENSING.md) is authoritative.
 
 ## Known limitations
 
-- Nothing runs on a watch. All behaviour described for the watch is a plan.
-- The compass icon exists, but no layout area or preview face contains it. Its position on the face is undecided.
-- The calendar icon exists but is not used on any composed face; the event strip is marked by an amber bar instead.
-- Weather shares one data module with rain probability (rain icon, `RAIN` label, percentage). How the icon changes with the condition while the label reads `RAIN` is not specified.
-- The clock font comparison faces show a temperature sample (`18°`). Temperature is not a Version 1 feature; that sample is stale.
-- The production preview shows only a single-digit hour (`6:42 PM`). Double-digit hours at 99 px leave 1 px of clearance to the frame per side; see [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md#clock).
-- Always-on display is not designed.
-- `dist/weather-mapping.json` carries no numeric Watch Face Studio values by design. Samsung's documentation publishes a list, recorded as unverified in [docs/WATCH-FACE-STUDIO.md](docs/WATCH-FACE-STUDIO.md#weather-condition).
+- The compass icon exists, but no layout area contains it. Version 1 on the watch has no compass shortcut.
+- Rain probability is not shown; the weather module shows temperature ([D-023](docs/DECISIONS.md#d-023-weather-module-shows-temperature)).
+- The next-event strip shows the system calendar icon, not the generated `calendar` icon. A complication's image comes from the calendar provider and cannot be replaced ([D-024](docs/DECISIONS.md#d-024-system-calendar-icon-accepted-in-the-event-strip)).
+- Always-on mode is built but was not seen on the watch screen.
+- The amber low-battery state, long real event titles and weather conditions other than partly cloudy were checked only in the Watch Face Studio editor, not on the watch.
+- The Watch Face Studio editor does not preview weather conditions or seconds; it draws all weather icons at once and a static ring.
+- Several sizes in the Watch Face Studio project differ from [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md): the clock's stored font height is 88, not 99 px, and all text uses Departure Mono. See [DESIGN-SPEC.md](docs/DESIGN-SPEC.md#watch-face-studio-version-1-as-built).
+- The production preview (`asset-generator`) still shows the earlier design: rain probability, no calendar icon, Share Tech Mono interface text.
+- `dist/weather-mapping.json` carries no numeric Watch Face Studio values by design. The numeric order used by the `.wfs` project is recorded in [watch-face/README.md](watch-face/README.md#weather-condition-mapping).
 - PNG bytes depend on the Sharp/libvips version.
 
 ## Roadmap
 
 | Phase | Status |
 | --- | --- |
-| 1. Asset system | Built and passing; not yet committed |
-| 2. Final production preview | Generated; open design questions remain |
-| 3. Watch Face Studio assembly | Not started |
-| 4. Device installation and testing | Not started |
-| 5. Always-on display and optimization | Not started, not designed |
+| 1. Asset system | Built and passing; committed |
+| 2. Final production preview | Generated; lags behind the watch face |
+| 3. Watch Face Studio assembly | Version 1 done; compass shortcut not placed |
+| 4. Device installation and testing | Installed on a Galaxy Watch9; partly tested |
+| 5. Always-on display and optimization | Always-on layout built; not seen on the watch, battery not measured |
 | 6. Possible future custom Wear OS implementation | Idea only |
 
 Full list: [docs/ROADMAP.md](docs/ROADMAP.md).
@@ -326,21 +341,32 @@ Then read, in this order:
 3. [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md)
 4. [docs/DECISIONS.md](docs/DECISIONS.md)
 5. [docs/ROADMAP.md](docs/ROADMAP.md)
-6. [docs/WATCH-FACE-STUDIO.md](docs/WATCH-FACE-STUDIO.md), because that is the next phase of work
+6. [docs/WATCH-FACE-STUDIO.md](docs/WATCH-FACE-STUDIO.md) and [watch-face/README.md](watch-face/README.md)
 
-The next piece of work is Phase 3: resolve the open design questions in [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md#open-design-questions), then create the first Watch Face Studio project using the checklist in [docs/WATCH-FACE-STUDIO.md](docs/WATCH-FACE-STUDIO.md#checklist-for-the-first-wfs-project).
+The next work is the remaining Phase 4 testing on the watch (always-on mode, low battery, long titles, more weather conditions, a full day's battery drain) and the polish items in [docs/ROADMAP.md](docs/ROADMAP.md).
+
+## Future polish
+
+- Place the compass shortcut, or decide to drop it from Version 1.
+- Decide whether rain probability returns, for example as a second line in the weather module.
+- Bring the clock to the specified 99 px, or record 88 as the decision, after checking double-digit hours on the watch.
+- Add the amber middle dot to the date (it needs a separate text layer in Watch Face Studio).
+- Show `--` instead of `0` when there is no heart-rate reading.
+- Update the generator's production preview to match the watch face.
+- Check the always-on mode in person and measure its battery drain.
 
 ## Last verification
 
 | Item | Value |
 | --- | --- |
-| Verification date | 2026-10-10 |
+| Verification date | 2026-10-15 |
 | Operating system | Windows 11 Home Single Language, 10.0.26200 |
 | Node.js | v22.22.0 |
 | npm | 11.19.0 |
-| `npm ci` | Succeeded, 0 vulnerabilities reported |
-| `npm run build` | Succeeded: 22/22, 21/21, 18/18 and 13/13 checks passed |
-| Determinism | SHA-256 of all 138 files in `asset-generator/dist/` identical before and after the build |
-| Git state | Branch `main`, 2 commits. At verification time the generator sources, fonts, `dist/` and all documentation were **not yet committed**. |
+| `npm run build` | Succeeded on 2026-10-15: 22/22, 21/21, 18/18 and 13/13 checks passed; `asset-generator/dist/` unchanged |
+| Determinism | On 2026-10-10: SHA-256 of all 138 files in `asset-generator/dist/` identical before and after the build |
+| Watch Face Studio | 1.9.9 |
+| Watch | Galaxy Watch9, SM-L350, Android 17 (API 37), connected over wireless adb |
+| Git state | Branch `main`. Generator, fonts, `dist/` and documentation committed; the Version 1 watch face committed with this verification. |
 
 Update this table whenever the build is re-verified on a new machine or toolchain.

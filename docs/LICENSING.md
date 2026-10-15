@@ -8,11 +8,11 @@ This is a record of what the repository contains and what the included licence f
 
 | Item | Licence | In the repository | Ships in the watch face |
 | --- | --- | --- | --- |
-| Departure Mono 1.500 | SIL OFL 1.1 | Yes | Planned |
-| Share Tech Mono 1.003 | SIL OFL 1.1 | Yes | Planned |
+| Departure Mono 1.500 | SIL OFL 1.1 | Yes | Yes, unmodified, inside `watch-face/Syswatch 01.wfs` (same SHA-256) |
+| Share Tech Mono 1.003 | SIL OFL 1.1 | Yes | No, not used by the Version 1 watch face |
 | `sharp` 0.35.5 | Apache-2.0 | No, installed by npm | No |
 | `opentype.js` 2.0.0 | MIT | No, installed by npm | No |
-| Generated SVG and PNG assets | Original project work | Yes | Planned |
+| Generated SVG and PNG assets | Original project work | Yes | Yes: grid, HUD frame, heart, battery and the 11 weather icons |
 | BM Space | Restricted | **No, excluded** | **No** |
 
 ## Bundled fonts
@@ -37,7 +37,7 @@ Both font files are stored unmodified beside their licence. The build verifies t
 | Requirements | See [OFL requirements](#ofl-requirements) |
 | SHA-256 (font) | `4d53f663155cf8bf7ffc8e688776e719625f7bbb80a8d90073438b249261a2e0` |
 
-Used for the main clock numerals, the colon and AM/PM.
+Used for the main clock numerals, the colon and AM/PM in the generator, and for all text in the Watch Face Studio project ([D-022](DECISIONS.md#d-022-departure-mono-for-all-text-in-the-watch-face-studio-build)). Before publishing the watch face, check how the OFL notice is to be included with it.
 
 ### Share Tech Mono
 
