@@ -236,3 +236,69 @@ Notes:
 - There is no clean step. The generators overwrite files in place and delete stale `.svg` and `.png` files they no longer define.
 - If `dist/` changes although no source did, the Sharp version probably changed. Check `git diff package-lock.json`.
 - To discard regenerated output and return to the committed state: `git restore asset-generator/dist`. This applies only once `dist/` has been committed.
+
+## Watch Face Studio rejects the file name
+
+**Symptom.** Save As shows "The file name contains invalid characters".
+
+**Cause.** Watch Face Studio does not allow hyphens (and several other characters) in project file names.
+
+**Fix.** Use letters, digits and spaces. The project is saved as `watch-face/Syswatch 01.wfs`.
+
+## Run on Device fails with `device offline`
+
+**Symptom.** Watch Face Studio lists the watch, then reports "Run on device fail. Failure: 'device offline'".
+
+**Cause.** The wireless adb connection dropped. This happened when other adb commands ran while Watch Face Studio was connecting, and after the watch's debugging port changed.
+
+**Fix.**
+
+1. Check the connection: `adb devices` must show the watch as `device`. If it shows `offline`, run `adb reconnect offline`. If it is missing, read the current address and port under Developer options → Wireless debugging on the watch and run `adb connect <ip>:<port>`; pair again if asked.
+2. Click Run on Device again and run no other adb commands until it reports "Launch Complete".
+
+## Screen capture from the watch is black
+
+**Symptom.** `adb exec-out screencap -p` returns an all-black image.
+
+**Cause.** The watch is dozing (always-on). The capture does not include the always-on layer.
+
+**Fix.** Wake the watch first: `adb shell input keyevent KEYCODE_WAKEUP`. Always-on mode has to be checked by eye.
+
+## The watch drops off wireless adb
+
+**Symptom.** `adb devices` shows the watch as `offline` or not at all, and `adb connect <ip>:<port>` times out.
+
+**Cause.** Seen on 2026-10-15 in three cases: after `adb kill-server`; after `adb shell content query --uri content://com.android.calendar/...` (twice, the query hung and then the connection closed); and while the watch lay off the wrist, when it seems to turn Wi-Fi off.
+
+**Fix.** Do not query the calendar provider over adb, and avoid `adb kill-server`. Wake the watch, check Developer options → Wireless debugging, then `adb connect <ip>:<port>`. If `adb devices` then lists the watch twice (as the IP and as an `adb-…._adb-tls-connect._tcp` name), it is the same watch; pick one with `ANDROID_SERIAL=<ip>:<port>` or `-s`.
+
+## Testing other hours without waiting
+
+**Symptom.** You need to see `10:08`–`12:59` on the watch now.
+
+**Cause.** `cmd time_zone_detector suggest_manual_time_zone` is refused to the adb shell (`SUGGEST_MANUAL_TIME_AND_ZONE`), but the shell has `SET_TIME_ZONE`.
+
+**Fix.** With the owner's OK:
+
+```powershell
+adb shell cmd time_zone_detector set_auto_detection_enabled false
+adb shell cmd alarm set-timezone Etc/GMT-1
+```
+
+`Etc/GMT-N` is UTC+N. Restore afterwards with `adb shell cmd alarm set-timezone <original zone>` and `adb shell cmd time_zone_detector set_auto_detection_enabled true`. The original zone on 2026-10-15 was `Asia/Vientiane`.
+
+## A test calendar event does not appear on the watch
+
+**Symptom.** An event added to the phone's calendar never shows in the next-event strip.
+
+**Cause.** The watch gets calendar data from the phone over Bluetooth. On 2026-10-15 Bluetooth was off.
+
+**Fix.** Turn Bluetooth on, open the Calendar app on the watch to confirm the event arrived, then look at the face.
+
+## The editor shows every weather icon at once
+
+**Symptom.** In the weather module, the Watch Face Studio canvas shows all 11 icons on top of each other, and the seconds ring and clock do not move.
+
+**Cause.** The editor does not preview weather conditions, seconds or the current time.
+
+**Fix.** None needed. Check the module on the watch. The condition assignments can be read in the weather timeline (the cloud icon in the left strip) or in the mapping table in [watch-face/README.md](../watch-face/README.md#weather-condition-mapping).
