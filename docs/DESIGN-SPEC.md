@@ -259,5 +259,5 @@ The `.wfs` project in [watch-face/](../watch-face/README.md) differs from the ge
 | Event strip | Amber bar, text from x 87 | Amber bar, then the system calendar icon 22×22 at x 85, y 236, then text from x 113, width 258, Departure Mono size 16, primary cyan |
 | Module content | 28 px icon, label 12 px, value 16 px | Stacked ([D-027](DECISIONS.md#d-027-stacked-data-modules-with-22-px-values)): 22×22 icon at module x + 4, y 288; label (size 11, secondary) at module x + 30, y 292; value (size 22, primary, left-aligned) at module x + 6, y 312, 74×28 |
 | Module 3 | `RAIN` and rain probability | `TEMP` and `[WTHR_TEM]°`, icon by `[WTHR_COND]` |
-| Seconds ring | Generated base and active images, stepped reveal | Watch Face Studio circular progress bar driven by `[SEC]` (0–59), primary cyan, 12 % background, 4 px |
+| Seconds ring | Generated base and active images, stepped reveal | As designed since 2026-10-15: `seconds-ring-base.png` always shown, `seconds-ring-active.png` revealed through a mask made from a circular progress bar driven by `[SEC]` (thickness 16, flat cap). Steps one whole segment per second on the watch |
 | Tap targets | Not specified | Heart rate, Battery, Samsung Weather |
