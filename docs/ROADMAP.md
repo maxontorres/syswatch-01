@@ -58,6 +58,7 @@ Version 1 built on 2026-10-15 in Watch Face Studio 1.9.9. Project: [watch-face/]
 - [x] AM/PM indicator
 - [x] Date
 - [x] Seconds ring driven by `[SEC]`
+- [x] Segmented seconds ring from the generated base and active images (mask over a progress bar), seen stepping on the watch
 - [x] Heart rate, with tap to Heart rate
 - [x] Battery percentage, amber at 15 % or less, with tap to Battery
 - [x] Weather icon switching by condition (11 generated icons on the weather timeline)

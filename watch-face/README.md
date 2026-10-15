@@ -10,6 +10,7 @@ Watch Face Studio does not accept hyphens in project file names, so the file is 
 | `captures/v1-normal-galaxy-watch9.png` | Screen capture from the watch after the first Version 1 install (live data, 4:04 PM). |
 | `captures/v1-battery-15-amber.png`, `captures/v1-battery-16-cyan.png` | Battery forced to 15 % and 16 % with `dumpsys battery set level`: amber and cyan (old module layout). |
 | `captures/v1-hour-10.png`, `captures/v1-hour-12.png` | Double-digit hours, by switching the time zone (old module layout, before the centring fix). |
+| `captures/v1-segmented-ring.png` | The segmented seconds ring on the watch (40 of 60 segments lit). |
 | `captures/v1-modules-22px.png` | After the 2026-10-15 update: stacked modules with 22 px values, clock and date centred. |
 
 Watch Face Studio writes build output to a `build/` folder beside the project when it runs on a device. `build/` is ignored by `.gitignore`.
@@ -32,6 +33,10 @@ The clock and date boxes are 290 px wide at x 80 so they centre on x 225. Until 
 
 | Layer | Type | Position, size | Normal | Always-on | Notes |
 | --- | --- | --- | --- | --- | --- |
+| `SECONDS_RING_MASK` | Mask | 0, 0 · 450×450 | shown | hidden | `RING_ACTIVE` masked by a copy of the progress ring: circular progress bar `[SEC]` 0–59, thickness 16, flat cap, background 0 %. Reveals one whole segment per second |
+| ├ (mask) | Circular progress bar | 1, 1 · 448×448 | | | Copy of `SECONDS_RING` with the settings above |
+| └ `RING_ACTIVE` | Image `seconds-ring-active.png` | 0, 0 · 450×450 | | | |
+| `RING_BASE` | Image `seconds-ring-base.png` | 0, 0 · 450×450 | shown | hidden | The 60 dim segments, always visible |
 | `TIME_PERIOD_AOD` | Text `[AMPM]` | 331, 185 · 45×26 | hidden | shown | Departure Mono 18, `#087DA6` |
 | `DATE_AOD` | Text | 80, 61 · 290×28 | hidden | shown | Copy of `DATE` in `#087DA6` |
 | `TIME_AOD` | Digital clock | 80, 106 · 290×100 | hidden | shown | Copy of `TIME` in `#087DA6`, colon not blinking |
@@ -52,7 +57,7 @@ The clock and date boxes are 290 px wide at x 80 so they centre on x 225. Until 
 | `NEXT_EVENT` | Complication, fixed, Next event, Long text "Image + Long Text" | 83, 233 · 290×28 | shown | hidden | |
 | ├ `Image` | Complication small image | 2, 3 · 22×22 | | | The system calendar icon, square |
 | └ `Long Text` | Complication text | 30, 4 · 258×20 | | | Departure Mono 16, `#79EEFF`, left-aligned, ellipsis when too long |
-| `SECONDS_RING` | Circular progress bar `[SEC]` 0–59 | 1, 1 · 448×448 | shown | hidden | `#79EEFF`, 12 % background, 4 px, clockwise from 12 o'clock |
+| `SECONDS_RING` | Circular progress bar `[SEC]` 0–59 | 1, 1 · 448×448 | hidden | hidden | The original smooth 4 px ring, kept hidden as a fallback. To return to it, show it and hide `SECONDS_RING_MASK` and `RING_BASE` |
 | `DATE` | Text | 80, 61 · 290×28 | shown | hidden | Departure Mono 18, `#79EEFF` |
 | `TIME_PERIOD` | Text `[AMPM]` | 331, 185 · 45×26 | shown | hidden | |
 | `TIME` | Digital clock, 12 h, no leading zero | 80, 106 · 290×100 | shown | hidden | Departure Mono, `#79EEFF`, blinking colon |
