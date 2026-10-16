@@ -102,7 +102,7 @@ libvips is LGPL. It is used here only as a build tool on the developer's machine
 - The three experimental numeral families are original geometry and contain no font data.
 - The preview renders contain text drawn from Departure Mono and Share Tech Mono outlines, which the OFL allows.
 
-**The project's own licence is undecided.** `asset-generator/package.json` declares `"license": "UNLICENSED"` and `"private": true`, and there is no `LICENSE` file at the repository root. Until the project owner chooses a licence, all rights in the original assets and code are reserved by default. Choose one before publishing the repository or the watch face.
+**The project's own licence is MIT** (chosen 2026-10-16; see [LICENSE](../LICENSE)). It covers the generator code, the generated SVG and PNG assets, the Watch Face Studio project and the documentation, not the bundled fonts. `asset-generator/package.json` declares `"license": "MIT"`; it stays `"private": true` only to stop accidental npm publishing. The released APK embeds Departure Mono, so each release ships with [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md).
 
 ## Inspiration is not source material
 

@@ -2,6 +2,14 @@
 
 Syswatch 01 is a custom Samsung Wear OS watch face inspired by early-2000s hacker software, technical monitoring systems, Y2K computer interfaces and restrained cyan science-fiction HUDs.
 
+<p align="center">
+  <img src="watch-face/captures/v1-segmented-ring.png" alt="Syswatch 01 on a Galaxy Watch9: 5:07 PM, date, next-event strip, heart rate 61, battery 72 %, 32° partly cloudy, segmented seconds ring" width="360">
+</p>
+
+<p align="center"><em>Captured from a Galaxy Watch9 with live data. Earlier iterations are in <a href="watch-face/captures/">watch-face/captures/</a>.</em></p>
+
+**Get it:** download the APK from the [latest release](https://github.com/maxontorres/syswatch-01/releases/latest) and follow [INSTALL.md](INSTALL.md). It is free, sideloaded over wireless debugging, and needs Wear OS 5 or newer.
+
 This repository (`syswatch-01`) is the sole source of truth for the project. Nothing needed to continue the work lives outside it.
 
 | If you are… | Start with |
@@ -280,7 +288,7 @@ Summary only; [docs/LICENSING.md](docs/LICENSING.md) is authoritative.
 - **Share Tech Mono** 1.003 by Carrois Type Design: SIL Open Font License 1.1. Licence included at `asset-generator/assets/fonts/share-tech-mono/OFL.txt`. These are the only two bundled fonts.
 - **Generated SVG and PNG assets** are original Syswatch 01 work, generated from code in this repository.
 - **BM Space was rejected for production.** Its included terms prohibit selling it or including it in commercial products without the author's permission. Do not include or restore BM Space assets without an explicit licence from its author.
-- No licence has been chosen for the project itself: `package.json` says `UNLICENSED` and there is no root `LICENSE` file.
+- **The project itself** (code, generated assets, the watch face project and docs) is under the [MIT licence](LICENSE). Font notices are in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 ## Known limitations
 

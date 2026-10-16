@@ -22,7 +22,7 @@ Status of every piece of work, determined from the repository on 2026-10-10 and 
 - [x] Deterministic output, verified by checksum across a rebuild on Windows
 - [x] Commit the generator sources, fonts and `dist/` output
 - [ ] Add a `WINDY` label to the weather mapping, to match Samsung's documented condition names
-- [ ] Decide the project's own licence
+- [x] Decide the project's own licence (MIT, 2026-10-16)
 - [ ] Verify deterministic output on a second machine or platform
 - [ ] Icon export at the 28 px display size, only if Watch Face Studio downscaling proves soft
 

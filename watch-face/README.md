@@ -96,3 +96,18 @@ The Watch Face Studio editor does not preview weather conditions: it draws all 1
 - Colours are shared between Normal and Always-on. To make a layer look different in always-on mode, duplicate it, hide the copy in Normal and the original in Always-on (as `*_AOD` does).
 - In the battery and weather timelines, double-clicking a layer row that has no condition yet gives it a full-range bar. Trim it by dragging the bar's end handle, which only responds when grabbed exactly. On a row that already has weather cells, double-clicking an empty cell adds just that cell. The view scrolls one column after each double-click, so look again before the next click.
 - Use **Swap Media** in a layer's context menu to replace an image and keep its size, position and conditions.
+
+## Release build
+
+Release 1.0.0 was built on 2026-10-16 with Publish (type AAB+APK) to `C:\Dev\wear-os\builds\syswatch-01\`, outside the repository:
+
+| Setting | Value |
+| --- | --- |
+| Package | `io.github.maxontorres.syswatch01` |
+| Version name / code | 1.0.0 / 10000001 (Watch Face Studio prefixes the entered code `1`) |
+| Min SDK | 34 |
+| Watch type | Digital |
+| Preview image | `watch-face/store/preview-450.png` (the current capture, resized to 450×450) |
+| Signing key | Owner's keystore in `C:\Users\maxon\WatchFaceStudio\keystore\`, alias `key0`. Never commit it; `.gitignore` excludes `*.jks`, `*.keystore` and `*.p12`. Every future release must use the same key. |
+
+The APK is attached to the GitHub Release; it is not committed. Installation for users: [INSTALL.md](../INSTALL.md).

@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 *~
 # Locally evaluated fonts pending license verification
 asset-generator/assets/fonts/local/
+
+# Signing keys (never commit)
+*.jks
+*.keystore
+*.p12
