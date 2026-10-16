@@ -296,7 +296,7 @@ Summary only; [docs/LICENSING.md](docs/LICENSING.md) is authoritative.
 - Rain probability is not shown; the weather module shows temperature ([D-023](docs/DECISIONS.md#d-023-weather-module-shows-temperature)).
 - The next-event strip shows the system calendar icon, not the generated `calendar` icon. A complication's image comes from the calendar provider and cannot be replaced ([D-024](docs/DECISIONS.md#d-024-system-calendar-icon-accepted-in-the-event-strip)).
 - Long real event titles and weather conditions other than partly cloudy were checked only in the Watch Face Studio editor, not on the watch.
-- With no heart-rate reading the watch keeps showing the last value; there is no visible no-reading state.
+- With no heart-rate reading the watch keeps showing the last value. The value shows `--` only when the watch reports 0 (no reading at all); that state is not yet seen on the watch.
 - The Watch Face Studio editor does not preview weather conditions or seconds; it draws all weather icons at once and a static ring.
 - Several sizes in the Watch Face Studio project differ from [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md): the clock's stored font height is 88, not 99 px, and all text uses Departure Mono. See [DESIGN-SPEC.md](docs/DESIGN-SPEC.md#watch-face-studio-version-1-as-built).
 - The production preview (`asset-generator`) still shows the earlier design: rain probability, no calendar icon, Share Tech Mono interface text.
@@ -358,7 +358,6 @@ The next work is the remaining Phase 4 testing on the watch (always-on mode, low
 - Place the compass shortcut, or decide to drop it from Version 1.
 - Decide whether rain probability returns, for example as a second line in the weather module.
 - Bring the clock to the specified 99 px, or record 88 as the decision, after checking double-digit hours on the watch.
-- Add the amber middle dot to the date (it needs a separate text layer in Watch Face Studio).
 - Heart rate: the watch keeps the last reading rather than showing `0`; decide whether anything else is needed.
 - Update the generator's production preview to match the watch face.
 - Measure the always-on mode's battery drain.

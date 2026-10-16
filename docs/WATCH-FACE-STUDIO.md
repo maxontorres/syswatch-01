@@ -26,6 +26,7 @@ Findings and plan for building Syswatch 01 in Samsung Watch Face Studio.
 | Seconds ring with the generated images | Works on the watch. Select a circular progress bar (above) and an image (below) and click **Mask**: the bar's drawn arc becomes the image's mask. With `[SEC]` 0–59, thickness 16 and a flat cap, it reveals exactly `[SEC]` whole segments of `seconds-ring-active.png`, clockwise from 12 o'clock (measured: 40, 45, 50 lit in successive captures, no partial segment). Use the flat cap: the square cap overshoots by half the thickness. The new mask group was shown in always-on by default; hide it there. |
 | Adding an image | There is no image entry in Add Component apart from preset images. Duplicate an existing image layer (the copy goes to the top of the list) and use **Swap Media**. Rename by double-clicking the layer name: the context menu's Rename does not always open the field, and Ctrl+A then selects every layer. |
 | Long event titles | Not seen on the watch: the test event did not sync because the watch's Bluetooth was off. |
+| Text expressions | Checked in the editor on 2026-10-16: a text field evaluates an expression only inside parentheses. `([HR]+5)` computes; the ternary `([HR] == 0 ? "--" : [HR])` works for both branches. Not yet checked on the watch. |
 | Editor preview | Does not animate the clock or seconds ring and does not preview weather conditions (all weather icons are drawn at once). Check those on the watch. |
 
 How to read the confidence labels:

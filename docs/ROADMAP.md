@@ -39,7 +39,7 @@ Status of every piece of work, determined from the repository on 2026-10-10 and 
 - [x] Specify the weather module: condition icon and temperature ([D-023](DECISIONS.md#d-023-weather-module-shows-temperature))
 - [x] Decide whether the calendar icon is used in the event strip (system icon, [D-024](DECISIONS.md#d-024-system-calendar-icon-accepted-in-the-event-strip))
 - [ ] Specify the event strip: maximum length, truncation, time format, empty state
-- [ ] Specify heart-rate formatting and the no-reading state
+- [x] Specify heart-rate formatting and the no-reading state (no padding; `--` at 0)
 - [ ] Add a double-digit hour sample to the production preview
 - [ ] Update the production preview to match the Version 1 watch face
 - [ ] Remove the stale temperature sample (`18°`) from the clock font comparison faces
@@ -68,8 +68,8 @@ Version 1 built on 2026-10-15 in Watch Face Studio 1.9.9. Project: [watch-face/]
 - [ ] Compass shortcut
 - [x] Record the tags used and the weather timeline order ([WATCH-FACE-STUDIO.md](WATCH-FACE-STUDIO.md))
 - [x] `.gitignore` already ignores Watch Face Studio `build/` output
-- [ ] Amber middle dot in the date
-- [ ] Heart-rate no-reading state (`--`)
+- [x] Amber middle dot in the date (`DATE_DOT`, 2026-10-16)
+- [x] Heart-rate no-reading state (`--` when `[HR]` is 0, 2026-10-16; not yet seen on the watch)
 
 ## Phase 4 — Device installation and testing
 

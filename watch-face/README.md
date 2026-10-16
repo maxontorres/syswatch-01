@@ -51,14 +51,15 @@ The clock and date boxes are 290 px wide at x 80 so they centre on x 225. Until 
 | └ `BATT_ICON` | Image `battery.png` | 0, 0 · 22×22 | shown | — | |
 | `HR_MODULE` | Group | 91, 288 · 76×52 | shown | hidden | Tap opens Heart rate (Samsung Health) |
 | ├ `HR_LABEL` | Text `HR` | 26, 4 · 50×14 | shown | — | |
-| ├ `HR_VALUE` | Text `[HR]` | 2, 24 · 74×28 | shown | — | Departure Mono 22 |
+| ├ `HR_VALUE` | Text `([HR] == 0 ? "--" : [HR])` | 2, 24 · 74×28 | shown | — | Departure Mono 22 |
 | └ `HR_ICON` | Image `heart.png` | 0, 0 · 22×22 | shown | — | |
 | `EVENT_ICON_COVER` | Rectangle | 105, 234 · 64×26 | hidden | hidden | Obsolete experiment, kept hidden, not deleted |
 | `NEXT_EVENT` | Complication, fixed, Next event, Long text "Image + Long Text" | 83, 233 · 290×28 | shown | hidden | |
 | ├ `Image` | Complication small image | 2, 3 · 22×22 | | | The system calendar icon, square |
 | └ `Long Text` | Complication text | 30, 4 · 258×20 | | | Departure Mono 16, `#79EEFF`, left-aligned, ellipsis when too long |
 | `SECONDS_RING` | Circular progress bar `[SEC]` 0–59 | 1, 1 · 448×448 | hidden | hidden | The original smooth 4 px ring, kept hidden as a fallback. To return to it, show it and hide `SECONDS_RING_MASK` and `RING_BASE` |
-| `DATE` | Text | 80, 61 · 290×28 | shown | hidden | Departure Mono 18, `#79EEFF` |
+| `DATE` | Text `[DAY_WEEK_S]   [DAY_1_31_Z]/[MON_Z]/[YEAR]` | 80, 61 · 290×28 | shown | hidden | Departure Mono 18, `#79EEFF`; the dot position is a space |
+| `DATE_DOT` | Text: 4 spaces, `·`, 11 spaces | 80, 61 · 290×28 | shown | hidden | Same box, font and centring as `DATE`, `#FFB347`. The monospaced padding puts the dot exactly in `DATE`'s gap. |
 | `TIME_PERIOD` | Text `[AMPM]` | 331, 185 · 45×26 | shown | hidden | |
 | `TIME` | Digital clock, 12 h, no leading zero | 80, 106 · 290×100 | shown | hidden | Departure Mono, `#79EEFF`, blinking colon |
 | `HUD_FRAME` | Image `hud-frame.png` | 0, 0 · 450×450 | shown | hidden | |
@@ -92,6 +93,8 @@ Each `WX_ICON_*` layer uses the Watch Face Studio weather condition timeline. It
 The Watch Face Studio editor does not preview weather conditions: it draws all 11 icons on top of each other. Switching has been seen on the watch only for the condition that was current at install time (partly cloudy).
 
 ## Editing tips
+
+- Text fields evaluate an expression only inside parentheses: `([HR]+5)` computes, `[HR]+5` is shown literally. Conditionals work the same way, for example `([HR] == 0 ? "--" : [HR])`.
 
 - Colours are shared between Normal and Always-on. To make a layer look different in always-on mode, duplicate it, hide the copy in Normal and the original in Always-on (as `*_AOD` does).
 - In the battery and weather timelines, double-clicking a layer row that has no condition yet gives it a full-range bar. Trim it by dragging the bar's end handle, which only responds when grabbed exactly. On a row that already has weather cells, double-clicking an empty cell adds just that cell. The view scrolls one column after each double-click, so look again before the next click.
